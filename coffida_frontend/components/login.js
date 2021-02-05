@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, 
-    TouchableOpacity, ToastAndroid, 
-    ActivityIndicator } from 'react-native';
+        TouchableOpacity, ToastAndroid, 
+        ActivityIndicator } from 'react-native';
 import styles from './stylesheet'
 //import TabbedNav from './tabbed_nav';
 import AsyncStorage from '@react-native-community/async-storage'
@@ -75,13 +75,16 @@ class Login extends Component{
                 .then(async (responseJson) => {
                     console.log(responseJson)
                     await AsyncStorage.setItem('@session_token', responseJson.token)
+                    await AsyncStorage.setItem('@id', JSON.stringify(responseJson.id))
+                    //await AsyncStorage.setItem(Parseint(id), responseJson.id)
                     this.props.navigation.navigate('TabbedNav');
-                    //console.log(AsyncStorage.getAllKeys())
+                    console.log(responseJson.token)
+                    console.log(responseJson.id)
                     //NEED TO KNOW HOW TO GET STORAGE ITEMS
                 })
                 .catch((error) => {
                     console.error(error);
-            })
+                })
         }
     
     }

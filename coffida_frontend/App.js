@@ -20,6 +20,7 @@ import Register from './components/register';
 import Home from './components/home';
 import MyLocations from './components/my_locations';
 import EditDetails from './components/edit_details';
+import Logout from './components/logout';
 
 
 
@@ -44,6 +45,7 @@ class App extends Component{
           <Stack.Screen name="TabbedNav" component={TabbedNav} options={{headerShown: false}} />
           <Stack.Screen name="MyLocations" component={MyLocations} options={{headerShown: true}} />
           <Stack.Screen name="EditDetails" component={EditDetails} options={{headerShown: true}} />
+          <Stack.Screen name="Logout" component={Logout} options={{headerShown: true}} />
         </Stack.Navigator>        
       </NavigationContainer>  
     );
