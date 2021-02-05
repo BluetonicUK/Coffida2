@@ -1,7 +1,7 @@
 
 
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, ActivityIndicator, Image } from 'react-native';
 import styles from './stylesheet'
 import Login from './login';
 import Register from './register';
@@ -23,6 +23,8 @@ class Home extends Component{
         return(
             
             <View style={styles.flexContainer} >
+
+                <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
 
                 <TouchableOpacity style={styles.button} onPress={() => nav.navigate('Login')} >
                     <Text style={styles.text}> Login </Text>

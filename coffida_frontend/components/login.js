@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, 
         TouchableOpacity, ToastAndroid, 
-        ActivityIndicator } from 'react-native';
+        ActivityIndicator, Image } from 'react-native';
 import styles from './stylesheet'
 //import TabbedNav from './tabbed_nav';
 import AsyncStorage from '@react-native-community/async-storage'
@@ -104,6 +104,9 @@ class Login extends Component{
     // }
     return(
         <View style={styles.flexContainer}>
+
+            <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
+
             <TextInput style={styles.input} 
                 placeholder='Enter email:' 
                 onChangeText={this.handleEmail} 

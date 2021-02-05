@@ -57,5 +57,11 @@ export default StyleSheet.create({
         width: '50%',
         marginLeft: 100,
         marginRight: 100,
+    },
+
+    logo: {
+        width: 150,
+        height: 150,
+        marginBottom: 80
     }
 });

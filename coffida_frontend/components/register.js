@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Text, View, TextInput, TouchableOpacity, Alert, ToastAndroid, ActivityIndicator} from 'react-native';
+import { Text, Image, TextInput, TouchableOpacity, Alert, ToastAndroid, ActivityIndicator} from 'react-native';
 import { BarPasswordStrengthDisplay } from 'react-native-password-strength-meter';
 import styles from './stylesheet'
 import { ScrollView } from 'react-native-gesture-handler';
@@ -103,6 +103,9 @@ class Register extends Component{
         return(
         
         <ScrollView contentContainerStyle={styles.flexContainer}>
+
+            <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
+
             <TextInput style={styles.input} 
                     placeholder='Enter First Name:'
                     onChangeText={this.handleFirstName} 

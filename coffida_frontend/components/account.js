@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, TouchableOpacity, ToastAndroid, Alert } from 'react-native';
+import { Text, View, Image, TouchableOpacity, ToastAndroid, Alert } from 'react-native';
 import styles from './stylesheet'
 import AsyncStorage from '@react-native-community/async-storage'
 
@@ -122,6 +122,8 @@ class Account extends Component{
   return(
 
     <View style={styles.flexContainer}>
+
+      <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
 
       <Text style={styles.text2}> Hello {this.state.firstname + " " + this.state.surname + "!"}</Text>
 
