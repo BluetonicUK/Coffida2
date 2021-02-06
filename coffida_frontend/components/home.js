@@ -8,20 +8,20 @@ import Register from './register';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
-class Home extends Component{
-    constructor(props){
+class Home extends Component {
+    constructor(props) {
         super(props);
 
         this.state = {
             isLoading: true
         }
     }
-    render(){
-        
+    render() {
+
         const nav = this.props.navigation;
 
-        return(
-            
+        return (
+
             <View style={styles.flexContainer} >
 
                 <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
@@ -29,8 +29,8 @@ class Home extends Component{
                 <TouchableOpacity style={styles.button} onPress={() => nav.navigate('Login')} >
                     <Text style={styles.text}> Login </Text>
                 </TouchableOpacity>
-                
-                <TouchableOpacity style={styles.button}  onPress={() => nav.navigate('Register')} >
+
+                <TouchableOpacity style={styles.button} onPress={() => nav.navigate('Register')} >
                     <Text style={styles.text}> Register </Text>
                 </TouchableOpacity>
             </View>

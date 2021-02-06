@@ -43,7 +43,7 @@ class TabbedNav extends Component{
                      else if (route.name === 'Search') {
                         iconName = focused ? 'search' : 'search-outline';
                     }
-                    else if (route.name === 'Coffee') {
+                    else if (route.name === 'Reviews') {
                         iconName = focused ? 'cafe' : 'cafe-outline';
                     }
         
@@ -62,7 +62,7 @@ class TabbedNav extends Component{
                 
                 <Tab.Screen name="Account" component={Account} />
                 <Tab.Screen name="Search" component={Search} />
-                <Tab.Screen name="Coffee" component={Account} />
+                <Tab.Screen name="Reviews" component={Account} />
             </Tab.Navigator>
 
     );

@@ -15,8 +15,10 @@ class Login extends Component{
         this.state = {
             isLoading: false,
             id: '',
-            loginEmail: '',
-            loginPassword: '',
+            loginEmail: 'joz@joz.com',
+            loginPassword: 'hello123',
+            //loginEmail: '',
+            //loginPassword: '',
             session_token: ''
         }
     }
@@ -110,12 +112,14 @@ class Login extends Component{
             <TextInput style={styles.input} 
                 placeholder='Enter email:' 
                 onChangeText={this.handleEmail} 
-                value={this.state.loginEmail} />
+                value={this.state.loginEmail} 
+                 />
 
             <TextInput style={styles.input} 
                 placeholder='Enter password:' 
                 onChangeText={this.handlePassword}
                 value={this.state.loginPassword} 
+                
                 secureTextEntry />
 
             <TouchableOpacity style={styles.button} onPress={() => this.logIn()} >

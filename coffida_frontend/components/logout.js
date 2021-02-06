@@ -31,7 +31,7 @@ class Account extends Component{
         <View style={styles.flexContainer}>
             <Text style={styles.text2}> You have succesfully logged out</Text>
 
-            <TouchableOpacity style={styles.button2} onPress={() => this.toLogin()}>
+            <TouchableOpacity style={styles.button} onPress={() => this.toLogin()}>
                 <Text style={styles.text2}> Login </Text>
             </TouchableOpacity> 
             

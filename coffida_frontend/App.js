@@ -21,6 +21,7 @@ import Home from './components/home';
 import MyLocations from './components/my_locations';
 import EditDetails from './components/edit_details';
 import Logout from './components/logout';
+import SearchResults from './components/search_results';
 
 
 
@@ -30,24 +31,25 @@ import Logout from './components/logout';
 
 const Stack = createStackNavigator();
 
-class App extends Component{
+class App extends Component {
 
   static navigationOptions = { header: null }
 
-  render(){
+  render() {
 
-    return(
+    return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={Home} options={{headerShown: false}} />
-          <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
-          <Stack.Screen name="Register" component={Register} options={{headerShown: false}} />
-          <Stack.Screen name="TabbedNav" component={TabbedNav} options={{headerShown: false}} />
-          <Stack.Screen name="MyLocations" component={MyLocations} options={{headerShown: true}} />
-          <Stack.Screen name="EditDetails" component={EditDetails} options={{headerShown: true}} />
-          <Stack.Screen name="Logout" component={Logout} options={{headerShown: true}} />
-        </Stack.Navigator>        
-      </NavigationContainer>  
+          <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+          <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+          <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
+          <Stack.Screen name="TabbedNav" component={TabbedNav} options={{ headerShown: false }} />
+          <Stack.Screen name="MyLocations" component={MyLocations} options={{ headerShown: true }} />
+          <Stack.Screen name="EditDetails" component={EditDetails} options={{ headerShown: true }} />
+          <Stack.Screen name="Logout" component={Logout} options={{ headerShown: true }} />
+          <Stack.Screen name="SearchResults" component={SearchResults} options={{ headerShown: true }} />
+        </Stack.Navigator>
+      </NavigationContainer>
     );
   }
 }

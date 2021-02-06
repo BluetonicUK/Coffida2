@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native'
+import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
 
@@ -26,34 +26,34 @@ export default StyleSheet.create({
     button: {
         width: 200,
         height: 40,
-        borderRadius: 6,
+        borderRadius: 20,
         backgroundColor: '#52e37b',
         margin: 20,
     },
 
-    button2: {
-        width: 150,
-        height: 31,
-        borderRadius: 6,
-        backgroundColor: '#52e37b',
-        margin: 10,
+    buttonRed: {
+        width: 200,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: '#ed6258',
+        margin: 20,
     },
 
-    text:{
+    text: {
         fontSize: 18,
         textAlign: 'center',
         color: 'black',
         padding: 8,
     },
 
-    text2:{
+    text2: {
         fontSize: 14,
         textAlign: 'center',
         color: 'black',
         padding: 4,
     },
 
-    passwordBar:{
+    passwordBar: {
         width: '50%',
         marginLeft: 100,
         marginRight: 100,
