@@ -122,7 +122,7 @@ class Account extends Component {
     var hours = new Date().getHours();
     if (hours >= 12 && hours < 17)
       return "afternoon, "
-    else if (hours >= 17 && hours < 0)
+    else if (hours >= 17)
       return "evening, "
     else
       return "morning, "

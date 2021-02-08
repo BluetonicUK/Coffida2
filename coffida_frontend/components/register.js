@@ -1,9 +1,9 @@
 
 import React, { Component } from 'react';
-import { Text, Image, TextInput, TouchableOpacity, Alert, ToastAndroid, ActivityIndicator } from 'react-native';
+import { Text, Image, TextInput, ScrollView, TouchableOpacity, View, ToastAndroid, ActivityIndicator } from 'react-native';
 import { BarPasswordStrengthDisplay } from 'react-native-password-strength-meter';
 import styles from './stylesheet'
-import { ScrollView } from 'react-native-gesture-handler';
+//import { ScrollView } from 'react-native-gesture-handler';
 
 class Register extends Component {
 
@@ -101,39 +101,40 @@ class Register extends Component {
 
         return (
 
-            <ScrollView contentContainerStyle={styles.flexContainer}>
+            <ScrollView >
+                <View style={styles.flexContainer}>
+                    <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
 
-                <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
+                    <TextInput style={styles.input}
+                        placeholder='Enter First Name:'
+                        onChangeText={this.handleFirstName}
+                        value={this.state.firstname} />
 
-                <TextInput style={styles.input}
-                    placeholder='Enter First Name:'
-                    onChangeText={this.handleFirstName}
-                    value={this.state.firstname} />
+                    <TextInput style={styles.input}
+                        placeholder='Enter Surname:'
+                        onChangeText={this.handleSurname}
+                        value={this.state.surname} />
 
-                <TextInput style={styles.input}
-                    placeholder='Enter Surname:'
-                    onChangeText={this.handleSurname}
-                    value={this.state.surname} />
+                    <TextInput style={styles.input}
+                        placeholder='Enter email:'
+                        onChangeText={this.handleEmail}
+                        value={this.state.loginEmail} />
 
-                <TextInput style={styles.input}
-                    placeholder='Enter email:'
-                    onChangeText={this.handleEmail}
-                    value={this.state.loginEmail} />
+                    <TextInput style={styles.input}
+                        placeholder='Enter password:'
+                        onChangeText={this.handlePassword}
+                        value={this.state.loginPassword}
+                        secureTextEntry />
+                    <BarPasswordStrengthDisplay
+                        password={this.state.loginPassword}
+                        width={200}
+                        minLength={1}
+                    />
 
-                <TextInput style={styles.input}
-                    placeholder='Enter password:'
-                    onChangeText={this.handlePassword}
-                    value={this.state.loginPassword}
-                    secureTextEntry />
-                <BarPasswordStrengthDisplay
-                    password={this.state.loginPassword}
-                    width={200}
-                    minLength={1}
-                />
-
-                <TouchableOpacity style={styles.button} onPress={() => this.register()} >
-                    <Text style={styles.text}> Register User </Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={() => this.register()} >
+                        <Text style={styles.text}> Register User </Text>
+                    </TouchableOpacity>
+                </View>
             </ScrollView>
         );
 

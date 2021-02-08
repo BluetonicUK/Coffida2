@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, ScrollView, Image, FlatList, } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage'
 import styles from './stylesheet'
-import { createStackNavigator } from '@react-navigation/stack';
+//import { createStackNavigator } from '@react-navigation/stack';
 //import UserHome from './user_home';
-import { ScrollView } from 'react-native-gesture-handler';
-import SearchResults from './search_results';
+
+//import SearchResult from './search_result';
 
 class Search extends Component {
 
@@ -15,18 +15,21 @@ class Search extends Component {
 
         this.state = {
             searchInput: '',
-            locID: 0,
+            locationID: 0,
             locationList: [],
+            hasSubmitted: false,
+
+            //individual location values
             locName: '',
             locTown: '',
             lat: 0,
-            lon: 0,
+            long: 0,
             photoPath: '',
             avgOverall: 0,
             avgPrice: 0,
             avgQuality: 0,
-            avgClean: 0,
-            locReviews: []
+            acvClean: 0,
+            shop_reviews: []
 
         }
     }
@@ -57,19 +60,15 @@ class Search extends Component {
                 })
                 .then(async (responseJson) => {
                     this.setState({
-                        locID: responseJson.location_id,
-                        locName: responseJson.location_name,
-                        locTown: responseJson.location_town,
-                        lat: responseJson.latitude,
-                        lon: responseJson.longitude,
-                        photoPath: responseJson.photo_path,
-                        avgOverall: responseJson.avg_overall_rating,
-                        avgPrice: responseJson.avg_price_rating,
-                        avgClean: responseJson.avg_clenliness_rating,
-                        locReviews: responseJson.location_reviews
+                        locationList: responseJson,
+                        locationName: responseJson.location_name,
+                        hasSubmitted: true,
 
                     })
-                    this.props.navigation.navigate("SearchResults") //why does this fire without the button press???
+                    //await AsyncStorage.setItem('@location_id', responseJson.location_id)
+                    //this.props.navigation.navigate("SearchResults")
+                    //console.log(responseJson.location_id)
+
                 })
                 .catch((error) => {
                     console.error(error + "ERROR 1");
@@ -81,36 +80,83 @@ class Search extends Component {
 
     }
 
-    componentDidMount() {
-        this.searchLocations();
+
+    
+
+    goBack = () => {
+        this.state.hasSubmitted = false;
+        this.forceUpdate()
+    }
+
+    selectResultID = (location_id) => {
+        //await AsyncStorage.setItem('@location_id', responseJson.locationList.location_id)
+        this.props.navigation.navigate("SearchResult")
+        console.log(location_id)
+        //this.state.locationID = item.location_id 
     }
 
     render() {
 
         //const nav = this.props.navigation;
+        if (this.state.hasSubmitted === false) {
+            return (
 
-        return (
-            <View style={styles.flexContainer}>
+                <View style={styles.flexContainer}>
 
-                <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
+                    <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
 
-                <Text style={styles.text2}> Enter your search in the box below: </Text>
+                    <Text style={styles.text2}> Enter your search in the box below: </Text>
 
-                <TextInput style={styles.input}
-                    placeholder='Search:'
-                    onChangeText={this.handleInput}
-                    value={this.state.searchInput} />
+                    <TextInput style={styles.input}
+                        placeholder='Search:'
+                        onChangeText={this.handleInput}
+                        value={this.state.searchInput} />
 
-                <TouchableOpacity style={styles.button} onPress={() => {this.searchLocations()}}>
-                    <Text style={styles.text}> Submit </Text>
-                </TouchableOpacity>
-                <SearchResults dataFromParent = "TEST" />
+                    <TouchableOpacity style={styles.button} onPress={() => { this.searchLocations() }} >
 
-            </View>
+                        <Text style={styles.text}> Submit </Text>
+                    </TouchableOpacity>
 
-        );
 
+                </View>
+
+            );
+        }
+
+        else if (this.state.hasSubmitted === true) {
+
+            return (
+                <View style={styles.flexContainer}>
+
+                    <TouchableOpacity style={styles.button} onPress={() => this.goBack()}>
+                        <Text style={styles.text}> Back </Text>
+                    </TouchableOpacity>
+
+                    <FlatList
+                        data={this.state.locationList}
+                        renderItem={({ item }) =>
+                            <TouchableOpacity style={styles.flatlist} onPress={() => this.selectResultID(item.location_id)} 
+                             >
+
+                                
+                                    <Text style={{ textAlign: 'center' }} >
+                                        {item.location_name}, {item.location_town}, {item.location_id} 
+                                    </Text>
+                                    
+                            </TouchableOpacity>}
+                        keyExtractor={(temp, index) => index.toString()}
+                    />
+                </View>
+            )
+
+        }
     }
 }
 
 export default Search;
+
+//<Image style={styles.logo} source={require('../logos/Coffida1.png')} />
+//<SearchResults dataFromParent={"TEST"} />
+
+//{...item.location_id =this.state.locationID } 
+//{...this.setState({locationID: item.location_id}) 

@@ -10,7 +10,7 @@ class MyLocations extends Component{
         super(props);
 
         this.state = {
-
+          myFavouriteLocations: []
         }
     }
 

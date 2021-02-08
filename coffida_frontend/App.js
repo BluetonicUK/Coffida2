@@ -21,7 +21,7 @@ import Home from './components/home';
 import MyLocations from './components/my_locations';
 import EditDetails from './components/edit_details';
 import Logout from './components/logout';
-import SearchResults from './components/search_results';
+import SearchResult from './components/search_result';
 
 
 
@@ -47,7 +47,7 @@ class App extends Component {
           <Stack.Screen name="MyLocations" component={MyLocations} options={{ headerShown: true }} />
           <Stack.Screen name="EditDetails" component={EditDetails} options={{ headerShown: true }} />
           <Stack.Screen name="Logout" component={Logout} options={{ headerShown: true }} />
-          <Stack.Screen name="SearchResults" component={SearchResults} options={{ headerShown: true }} />
+          <Stack.Screen name="SearchResult" component={SearchResult} options={{ headerShown: true }} />
         </Stack.Navigator>
       </NavigationContainer>
     );

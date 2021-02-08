@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, TouchableOpacity, ToastAndroid, Alert } from 'react-native';
+import { Text, View, Image, TouchableOpacity, ToastAndroid, Alert } from 'react-native';
 import styles from './stylesheet'
 
 //import UserHome from './user_home';
@@ -17,7 +17,7 @@ class Account extends Component{
 
     toLogin(){
         return(
-          this.props.navigation.navigate('Login')
+          this.props.navigation.navigate('Home')
         );
       }
 
@@ -29,10 +29,12 @@ class Account extends Component{
     return(
 
         <View style={styles.flexContainer}>
-            <Text style={styles.text2}> You have succesfully logged out</Text>
+            <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
+
+            <Text style={styles.text}> You have succesfully logged out</Text>
 
             <TouchableOpacity style={styles.button} onPress={() => this.toLogin()}>
-                <Text style={styles.text2}> Login </Text>
+                <Text style={styles.text}> Login </Text>
             </TouchableOpacity> 
             
         </View>

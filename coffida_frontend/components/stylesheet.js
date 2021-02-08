@@ -63,5 +63,15 @@ export default StyleSheet.create({
         width: 150,
         height: 150,
         marginBottom: 80
+    },
+
+    flatlist: {
+        borderWidth: 1,
+        borderColor: '#52e37b',
+        height: 40,
+        width: 300,
+        paddingTop: 10,
+        marginBottom: 5,
+        borderRadius: 6
     }
 });
