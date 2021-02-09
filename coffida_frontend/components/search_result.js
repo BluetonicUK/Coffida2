@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Div, TouchableOpacity, Image } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity, Image, ScrollView } from 'react-native';
 import styles from './stylesheet'
 import { createStackNavigator } from '@react-navigation/stack';
 //import UserHome from './user_home';
@@ -9,7 +9,7 @@ import StarRating from 'react-native-star-rating';
 //import location_id from './search'
 
 
-//const location_id = route.params
+//const {location_id} = this.props.navigation.state.params.data;
 
 class SearchResult extends React.Component{
 
@@ -29,31 +29,36 @@ class SearchResult extends React.Component{
             avgOverall: 0,
             avgPrice: 0,
             avgQuality: 0,
-            acvClean: 0,
-            shop_reviews: []
+            avgClean: 0,
+            LocReviews: [],
+
+            favourite: false,
+            isPhoto: false,
+
 
         }
             
     }
-    
-    onStarRatingPress(rating) {
-        this.setState({
-          starCount: rating
-        });
-      }
-    
 
-    // componentDidMount(){
-    //     this.returnLocation();
-    // }
+
+    componentDidMount(){
+        this.returnLocation();
+    }
+
+    componentWillUnmount(){
+
+    }
 
 
     returnLocation = async () => {
 
+        
+
         token = await AsyncStorage.getItem('@session_token')
+        id = await AsyncStorage.getItem('@location_id')
 
         try {
-            return fetch("http://10.0.2.2:3333/api/1.0.0/location/" + this.state.locationID,
+            return fetch("http://10.0.2.2:3333/api/1.0.0/location/" + id,
                 {
                     method: 'GET',
                     headers: {
@@ -77,8 +82,8 @@ class SearchResult extends React.Component{
                         avgOverall: responseJson.avg_overall_rating,
                         avgPrice: responseJson.avg_price_rating,
                         avgQuality: responseJson.avg_quality_rating,
-                        acvClean: responseJson.avg_clenliness_rating,
-                        shop_reviews: responseJson.location_reviews
+                        avgClean: responseJson.avg_clenliness_rating,
+                        LocReviews: responseJson.location_reviews
 
                     })
 
@@ -92,22 +97,113 @@ class SearchResult extends React.Component{
         }
 
     }
-    
-    render(){
-        
-        return(
-            <View style={styles.flexContainer}>
 
+        
+    onStarRatingPress(rating) {
+        this.setState({
+          starCount: rating
+        });
+      }
+
+    returnMainReviewStars = (starRating) => {
+        return(
             
             <StarRating 
-                disabled={false}
-                maxStars={5}
-                rating={this.state.starCount}
-                selectedStar={(rating) => this.onStarRatingPress(rating)}
-                emptyStarColor={'#a9abb0'}
-                fullStarColor={'#1dab40'}
-                />
-   
+                    containerStyle={styles.star}
+                    disabled={true}
+                    maxStars={5}
+                    rating={starRating}
+                    //selectedStar={(rating) => this.onStarRatingPress(rating)}
+                    emptyStarColor={'#a9abb0'}
+                    fullStarColor={'#1dab40'}
+                    starSize={18}
+
+            />
+            
+
+        )
+    }
+    IndividualReviewStars = (starRating) => {
+        return(
+            
+            <StarRating 
+                    containerStyle={styles.star}
+                    disabled={true}
+                    maxStars={5}
+                    rating={starRating}
+                    //selectedStar={(rating) => this.onStarRatingPress(rating)}
+                    emptyStarColor={'#a9abb0'}
+                    fullStarColor={'#7ee687'}
+                    starSize={15}
+
+            />
+            
+
+        )
+    }
+    
+    render(){
+        //console.log({location_id})
+
+        return(
+            <View>
+                <View style={styles.shop}>
+                    <Text style={{textAlign: 'center', fontWeight: 'bold'}}>{this.state.locName + '\n' + this.state.locTown +'\n'}</Text>            
+                    
+                        <View style={styles.ratingView}>
+                            <Text>Overall: </Text>
+                            <Text>{this.returnMainReviewStars(this.state.avgOverall)}</Text>
+                        </View>
+                    
+                        <View style={styles.ratingView}>
+                            <Text>Average Price: </Text>   
+                            <Text>{this.returnMainReviewStars(this.state.avgPrice)}</Text>
+                        </View>
+
+                        <View style={styles.ratingView}>
+                            <Text>Average Quality: </Text>   
+                            <Text>{this.returnMainReviewStars(this.state.avgQuality)}</Text>
+                        </View>
+
+                        <View style={styles.ratingView}>
+                            <Text>Average Cleanliness: </Text>   
+                            <Text>{this.returnMainReviewStars(this.state.avgClean)}</Text>
+                        </View>
+
+
+
+                    <View style={styles.mapButtonView}>
+                        <TouchableOpacity style={styles.mapButton}>
+                            <Text style={styles.text2} >  Map</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.mapButton} >
+                            <Text style={styles.text2} >Review</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+                
+                <FlatList
+                        contentContainerStyle={{height: 1000, width: 300}}
+                        data={this.state.LocReviews}
+                        renderItem={({ item }) =>  
+
+
+                            <Text>
+                                User Review: {item.review_id + '\n'}                          
+                                Overall Rating: {this.IndividualReviewStars(item.overall_rating)}{'\n'}
+                                Price Rating: {this.IndividualReviewStars(item.price_rating)}{'\n'}                    
+                                Qiality Rating: {this.IndividualReviewStars(item.quality_rating)}{'\n'}
+                                Cleanliness Rating: {this.IndividualReviewStars(item.clenliness_rating)}{'\n'}
+                                Likes: {item.likes}{'\n'}
+                                Comment: {item.review_body + '\n'}
+                            </Text>
+                                    
+                            }
+                        keyExtractor={(temp, index) => index.toString()}
+                    />
+                
+
             </View>
 
         );
@@ -116,6 +212,8 @@ class SearchResult extends React.Component{
 }
 
 export default SearchResult;
+
+
 
 
 // //<Rating 

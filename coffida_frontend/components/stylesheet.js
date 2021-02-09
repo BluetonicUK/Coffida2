@@ -12,6 +12,34 @@ export default StyleSheet.create({
 
     },
 
+    shop: {
+        borderWidth: 1,
+        borderColor: '#52e37b',
+        borderRadius: 6,
+        justifyContent: 'space-around',
+        flexDirection: 'column',
+        backgroundColor: '#d1e8d7',
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+
+    star: {
+        //flex: 1,
+        //justifyContent: 'flex-end',
+        alignItems: 'flex-end'
+        //textAlign: 'right',
+        //textAlign: 'justify',
+        //paddingLeft: 50,
+        //marginTop: 5,
+        
+    },
+
+    ratingView: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+
+
     input: {
         borderWidth: 1,
         borderColor: '#52e37b',
@@ -39,6 +67,22 @@ export default StyleSheet.create({
         margin: 20,
     },
 
+    mapButton: {
+        flexDirection: 'row',
+        width: 100,
+        height: 20,
+        backgroundColor: '#52e37b',
+        borderRadius: 20,
+
+    },
+
+    mapButtonView: {
+        justifyContent: 'space-around',
+        flexDirection: 'row',
+        margin: 10,
+        
+    },
+
     text: {
         fontSize: 18,
         textAlign: 'center',
@@ -47,10 +91,11 @@ export default StyleSheet.create({
     },
 
     text2: {
-        fontSize: 14,
+        fontSize: 12,
         textAlign: 'center',
         color: 'black',
-        padding: 4,
+        paddingLeft: 30,
+        
     },
 
     passwordBar: {

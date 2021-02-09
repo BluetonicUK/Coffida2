@@ -88,11 +88,14 @@ class Search extends Component {
         this.forceUpdate()
     }
 
-    selectResultID = (location_id) => {
-        //await AsyncStorage.setItem('@location_id', responseJson.locationList.location_id)
+    selectResultID = async (location_id) => {
+        
+        this.state.locationID = location_id 
+        //this.props.navigation.navigate("SearchResult", { data: location_id} )
+        await AsyncStorage.setItem('@location_id', JSON.stringify(location_id))
         this.props.navigation.navigate("SearchResult")
-        console.log(location_id)
-        //this.state.locationID = item.location_id 
+        //console.log(location)
+
     }
 
     render() {
