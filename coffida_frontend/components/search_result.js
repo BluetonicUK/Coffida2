@@ -2,19 +2,21 @@ import React, { Component } from 'react';
 import { Text, View, FlatList, TouchableOpacity, Image, ScrollView } from 'react-native';
 import styles from './stylesheet'
 import { createStackNavigator } from '@react-navigation/stack';
-//import UserHome from './user_home';
+
 import AsyncStorage from '@react-native-community/async-storage'
-import { Rating, AirbnbRating } from 'react-native-ratings';
+
 import StarRating from 'react-native-star-rating';
-//import location_id from './search'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 
-//const {location_id} = this.props.navigation.state.params.data;
 
-class SearchResult extends React.Component{
 
-    
-    constructor(props){
+
+class SearchResult extends React.Component {
+
+
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -35,24 +37,24 @@ class SearchResult extends React.Component{
             favourite: false,
             isPhoto: false,
 
-
+            testReviews: []
         }
-            
+
     }
 
 
-    componentDidMount(){
+    componentDidMount() {
         this.returnLocation();
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
 
     }
 
 
     returnLocation = async () => {
 
-        
+
 
         token = await AsyncStorage.getItem('@session_token')
         id = await AsyncStorage.getItem('@location_id')
@@ -98,77 +100,101 @@ class SearchResult extends React.Component{
 
     }
 
-        
+
     onStarRatingPress(rating) {
         this.setState({
-          starCount: rating
+            starCount: rating
         });
-      }
+    }
 
     returnMainReviewStars = (starRating) => {
-        return(
-            
-            <StarRating 
-                    containerStyle={styles.star}
-                    disabled={true}
-                    maxStars={5}
-                    rating={starRating}
-                    //selectedStar={(rating) => this.onStarRatingPress(rating)}
-                    emptyStarColor={'#a9abb0'}
-                    fullStarColor={'#1dab40'}
-                    starSize={18}
+        return (
+
+            <StarRating
+                containerStyle={styles.star}
+                disabled={true}
+                maxStars={5}
+                rating={starRating}
+                //selectedStar={(rating) => this.onStarRatingPress(rating)}
+                emptyStarColor={'#a9abb0'}
+                fullStarColor={'#1dab40'}
+                starSize={18}
 
             />
-            
+
 
         )
     }
     IndividualReviewStars = (starRating) => {
-        return(
-            
-            <StarRating 
-                    containerStyle={styles.star}
-                    disabled={true}
-                    maxStars={5}
-                    rating={starRating}
-                    //selectedStar={(rating) => this.onStarRatingPress(rating)}
-                    emptyStarColor={'#a9abb0'}
-                    fullStarColor={'#7ee687'}
-                    starSize={15}
+        return (
+
+            <StarRating
+                containerStyle={styles.star}
+                disabled={true}
+                maxStars={5}
+                rating={starRating}
+                //selectedStar={(rating) => this.onStarRatingPress(rating)}
+                emptyStarColor={'#a9abb0'}
+                fullStarColor={'#7ee687'}
+                starSize={15}
 
             />
-            
+
 
         )
     }
-    
-    render(){
+
+    addRemoveFavourite = () => {
+        let icon = 'heart';
+            if(icon === 'heart-outline'){
+                return(
+                    <Ionicons name={'heart'} size={18} color={'red'} />
+                )
+            }
+            else if(icon === 'heart'){
+                return(
+                    <Ionicons name={'heart-outline'} size={18} color={'red'} />
+                )
+            }
+
+
+    }
+
+    render() {
         //console.log({location_id})
 
-        return(
+        return (
             <View>
                 <View style={styles.shop}>
-                    <Text style={{textAlign: 'center', fontWeight: 'bold'}}>{this.state.locName + '\n' + this.state.locTown +'\n'}</Text>            
-                    
-                        <View style={styles.ratingView}>
-                            <Text>Overall: </Text>
-                            <Text>{this.returnMainReviewStars(this.state.avgOverall)}</Text>
-                        </View>
-                    
-                        <View style={styles.ratingView}>
-                            <Text>Average Price: </Text>   
-                            <Text>{this.returnMainReviewStars(this.state.avgPrice)}</Text>
-                        </View>
+                    <Text 
+                        style={{ textAlign: 'center', fontWeight: 'bold' }}>
+                            {this.state.locName + '\n' + this.state.locTown}</Text>
 
-                        <View style={styles.ratingView}>
-                            <Text>Average Quality: </Text>   
-                            <Text>{this.returnMainReviewStars(this.state.avgQuality)}</Text>
-                        </View>
+ 
+                        <TouchableHighlight style={{alignItems: 'center'}} onPress={() => this.addRemoveFavourite()}>
+                            {this.addRemoveFavourite()}
+                        </TouchableHighlight>
 
-                        <View style={styles.ratingView}>
-                            <Text>Average Cleanliness: </Text>   
-                            <Text>{this.returnMainReviewStars(this.state.avgClean)}</Text>
-                        </View>
+
+                    <View style={styles.ratingView}>
+                        <Text>Overall: </Text>
+                        <Text>{this.returnMainReviewStars(this.state.avgOverall)}</Text>
+                    </View>
+
+                    <View style={styles.ratingView}>
+                        <Text>Average Price: </Text>
+                        <Text>{this.returnMainReviewStars(this.state.avgPrice)}</Text>
+                    </View>
+
+                    <View style={styles.ratingView}>
+                        <Text>Average Quality: </Text>
+                        <Text>{this.returnMainReviewStars(this.state.avgQuality)}</Text>
+                    </View>
+
+                    <View style={styles.ratingView}>
+                        <Text>Average Cleanliness: </Text>
+                        <Text>{this.returnMainReviewStars(this.state.avgClean)}</Text>
+                    </View>
 
 
 
@@ -180,35 +206,40 @@ class SearchResult extends React.Component{
                             <Text style={styles.text2} >Review</Text>
                         </TouchableOpacity>
                     </View>
+
+                    <View style={{alignItems: 'center'}}>
+                        <Image style={styles.image} source={require('../images/cup.jpg')}></Image>
+                    </View>
                 </View>
 
-                
+
                 <FlatList
-                        contentContainerStyle={{height: 1000, width: 300}}
-                        data={this.state.LocReviews}
-                        renderItem={({ item }) =>  
+                    contentContainerStyle={{ height: 1000, width: 300 }}
+                    data={this.state.LocReviews}
+                    renderItem={({ item }) =>
 
 
-                            <Text>
-                                User Review: {item.review_id + '\n'}                          
-                                Overall Rating: {this.IndividualReviewStars(item.overall_rating)}{'\n'}
-                                Price Rating: {this.IndividualReviewStars(item.price_rating)}{'\n'}                    
-                                Qiality Rating: {this.IndividualReviewStars(item.quality_rating)}{'\n'}
-                                Cleanliness Rating: {this.IndividualReviewStars(item.clenliness_rating)}{'\n'}
+                        <Text style={{fontSize: 13}}>
+                            User Review: {item.review_id + '\n'}
+                                Overall Rating:                     {this.IndividualReviewStars(item.overall_rating)}{'\n'}
+                                Price Rating:                        {this.IndividualReviewStars(item.price_rating)}{'\n'}
+                                Qiality Rating:                      {this.IndividualReviewStars(item.quality_rating)}{'\n'}
+                                Cleanliness Rating:             {this.IndividualReviewStars(item.clenliness_rating)}{'\n'}
+                                Comment:    {item.review_body + '\n'}
                                 Likes: {item.likes}{'\n'}
-                                Comment: {item.review_body + '\n'}
-                            </Text>
-                                    
-                            }
-                        keyExtractor={(temp, index) => index.toString()}
-                    />
-                
+                                
+                        </Text>
+
+                    }
+                    keyExtractor={(temp, index) => index.toString()}
+                />
+
 
             </View>
 
         );
-    
-  }
+
+    }
 }
 
 export default SearchResult;

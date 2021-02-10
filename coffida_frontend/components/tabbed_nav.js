@@ -3,10 +3,8 @@ import 'react-native-gesture-handler';
 import React, { Component } from 'react';
 import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-//import Icon from 'react-native-ionicons'
+
 import Ionicons from 'react-native-vector-icons/Ionicons'
-//import { Icon } from 'react-native-elements'
-import styles from './stylesheet'
 import Account from './account';
 import Search from './search';
 

@@ -110,6 +110,13 @@ export default StyleSheet.create({
         marginBottom: 80
     },
 
+    image: {
+        height: 100,
+        width: 100,
+        borderRadius: 6,
+        marginBottom: 5
+    },
+
     flatlist: {
         borderWidth: 1,
         borderColor: '#52e37b',
