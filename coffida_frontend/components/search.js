@@ -105,7 +105,7 @@ class Search extends Component {
 
                     <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
 
-                    <Text style={styles.text2}> Enter your search in the box below: </Text>
+                    <Text style={styles.text}> Enter your search in the box below: </Text>
 
                     <TextInput style={styles.input}
                         placeholder='Search:'

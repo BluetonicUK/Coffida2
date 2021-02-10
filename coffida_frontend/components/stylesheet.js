@@ -13,6 +13,7 @@ export default StyleSheet.create({
     },
 
     shop: {
+        //flex: 1,
         borderWidth: 1,
         borderColor: '#52e37b',
         borderRadius: 6,
@@ -21,17 +22,11 @@ export default StyleSheet.create({
         backgroundColor: '#d1e8d7',
         paddingLeft: 20,
         paddingRight: 20,
+        marginBottom: 5,
     },
 
     star: {
-        //flex: 1,
-        //justifyContent: 'flex-end',
         alignItems: 'flex-end'
-        //textAlign: 'right',
-        //textAlign: 'justify',
-        //paddingLeft: 50,
-        //marginTop: 5,
-        
     },
 
     ratingView: {
@@ -49,6 +44,14 @@ export default StyleSheet.create({
         height: 40,
         width: 200,
         margin: 20,
+    },
+
+    reviewInput: {
+        borderWidth: 1,
+        borderColor: '#52e37b',
+        borderRadius: 6,
+        minHeight: 50,
+        width: 250,
     },
 
     button: {
@@ -107,7 +110,7 @@ export default StyleSheet.create({
     logo: {
         width: 150,
         height: 150,
-        marginBottom: 80
+        marginBottom: 40
     },
 
     image: {
@@ -126,4 +129,5 @@ export default StyleSheet.create({
         marginBottom: 5,
         borderRadius: 6
     }
+
 });

@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, TouchableOpacity, ToastAndroid } from 'react-native';
+import { Text, ScrollView, TextInput, TouchableOpacity, ToastAndroid, View } from 'react-native';
 import styles from './stylesheet'
-import { ScrollView } from 'react-native-gesture-handler';
 import { BarPasswordStrengthDisplay } from 'react-native-password-strength-meter';
 import AsyncStorage from '@react-native-community/async-storage'
 
-// URL NEEDS ID NUMBER!!!!!
+// FIX PATCH -> all fields need a value when patching - check null
 
 class EditDetails extends Component {
 
@@ -14,9 +13,9 @@ class EditDetails extends Component {
         super(props);
 
         this.state = {
-            firstname: '',
-            surname: '',
-            email: '',
+            firstname: null,
+            surname: null,
+            email: null,
             password: ''
         }
     }
@@ -98,7 +97,8 @@ class EditDetails extends Component {
 
         return (
 
-            <ScrollView contentContainerStyle={styles.flexContainer}>
+            <ScrollView >
+                <View style={styles.flexContainer}>
                 <TextInput style={styles.input}
                     placeholder='Enter First Name:'
                     onChangeText={this.handleFirstName}
@@ -128,6 +128,7 @@ class EditDetails extends Component {
                 <TouchableOpacity style={styles.button} onPress={() => this.submitChanges()} >
                     <Text style={styles.text}> Submit Changes </Text>
                 </TouchableOpacity>
+                </View>
             </ScrollView>
 
         );

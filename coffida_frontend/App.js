@@ -22,6 +22,7 @@ import MyLocations from './components/my_locations';
 import EditDetails from './components/edit_details';
 import Logout from './components/logout';
 import SearchResult from './components/search_result';
+import AddReview from './components/add_review';
 
 
 
@@ -41,13 +42,14 @@ class App extends Component {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-          <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-          <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
+          <Stack.Screen name="Login" component={Login} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'}}}/>
+          <Stack.Screen name="Register" component={Register} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'}}} />
           <Stack.Screen name="TabbedNav" component={TabbedNav} options={{ headerShown: false }} />
-          <Stack.Screen name="MyLocations" component={MyLocations} options={{ headerShown: true }} />
-          <Stack.Screen name="EditDetails" component={EditDetails} options={{ headerShown: true }} />
-          <Stack.Screen name="Logout" component={Logout} options={{ headerShown: true }} />
-          <Stack.Screen name="SearchResult" component={SearchResult} options={{ headerShown: true }} />
+          <Stack.Screen name="MyLocations" component={MyLocations} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'}}} />
+          <Stack.Screen name="EditDetails" component={EditDetails} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'}}} />
+          <Stack.Screen name="Logout" component={Logout} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'}}}/>
+          <Stack.Screen name="SearchResult" component={SearchResult} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'}}}/>
+          <Stack.Screen name="Add Review" component={AddReview} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'} }} />
         </Stack.Navigator>
       </NavigationContainer>
     );

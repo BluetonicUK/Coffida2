@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity, Image, ScrollView, ToastAndroid } from 'react-native';
 import styles from './stylesheet'
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -7,10 +7,6 @@ import AsyncStorage from '@react-native-community/async-storage'
 
 import StarRating from 'react-native-star-rating';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { TouchableHighlight } from 'react-native-gesture-handler';
-
-
-
 
 
 class SearchResult extends React.Component {
@@ -37,7 +33,13 @@ class SearchResult extends React.Component {
             favourite: false,
             isPhoto: false,
 
-            testReviews: []
+            testReviews: [],
+
+            icon: 'heart-outline',
+            likeIcon: 'thumbs-up-outline',
+
+            reviewID: 0,
+            likes: 0,
         }
 
     }
@@ -51,10 +53,11 @@ class SearchResult extends React.Component {
 
     }
 
+    toAddReview = () => {
+        this.props.navigation.navigate("Add Review")
+    }
 
     returnLocation = async () => {
-
-
 
         token = await AsyncStorage.getItem('@session_token')
         id = await AsyncStorage.getItem('@location_id')
@@ -64,6 +67,7 @@ class SearchResult extends React.Component {
                 {
                     method: 'GET',
                     headers: {
+
                         'Content-Type': 'application/json',
                         'Content-Type': 'image/jpeg',
                         //'X-Authorization': token
@@ -85,7 +89,8 @@ class SearchResult extends React.Component {
                         avgPrice: responseJson.avg_price_rating,
                         avgQuality: responseJson.avg_quality_rating,
                         avgClean: responseJson.avg_clenliness_rating,
-                        LocReviews: responseJson.location_reviews
+                        LocReviews: responseJson.location_reviews,
+                        likes: responseJson.location_reviews.likes
 
                     })
 
@@ -101,11 +106,7 @@ class SearchResult extends React.Component {
     }
 
 
-    onStarRatingPress(rating) {
-        this.setState({
-            starCount: rating
-        });
-    }
+    
 
     returnMainReviewStars = (starRating) => {
         return (
@@ -119,10 +120,7 @@ class SearchResult extends React.Component {
                 emptyStarColor={'#a9abb0'}
                 fullStarColor={'#1dab40'}
                 starSize={18}
-
             />
-
-
         )
     }
     IndividualReviewStars = (starRating) => {
@@ -137,43 +135,153 @@ class SearchResult extends React.Component {
                 emptyStarColor={'#a9abb0'}
                 fullStarColor={'#7ee687'}
                 starSize={15}
-
             />
-
-
         )
     }
 
-    addRemoveFavourite = () => {
-        let icon = 'heart';
-            if(icon === 'heart-outline'){
-                return(
-                    <Ionicons name={'heart'} size={18} color={'red'} />
-                )
-            }
-            else if(icon === 'heart'){
-                return(
-                    <Ionicons name={'heart-outline'} size={18} color={'red'} />
-                )
-            }
+    addRemoveFavourite = async () => {
 
+        token = await AsyncStorage.getItem('@session_token')
+        id = await AsyncStorage.getItem('@location_id')
+
+        if (this.state.icon === 'heart-outline') {
+
+            return fetch("http://10.0.2.2:3333/api/1.0.0/location/" + id + '/favourite',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Authorization': token
+                    },
+                })
+                .then((response) => {
+                    if (response.status === 200) {
+                        this.setState({ 
+                            icon: 'heart',
+                            favourite: true
+                        })
+                        ToastAndroid.show('Added to favourites', ToastAndroid.SHORT)
+                        
+                    }
+                })
+                .catch((error) => {
+                    console.error(error + "ERROR 1");
+                })
+
+        }
+
+        else {
+            return fetch("http://10.0.2.2:3333/api/1.0.0/location/" + id + '/favourite',
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Authorization': token
+                    },
+                })
+                .then((response) => {
+                    if (response.status === 200) {
+                        this.setState({ 
+                            icon: 'heart-outline',
+                            favourite: false
+                        })
+                        ToastAndroid.show('Removed from favourites', ToastAndroid.SHORT)
+                    }
+                })
+                .catch((error) => {
+                    console.error(error + "ERROR 1");
+                })
+        }
 
     }
 
+    likeDislikeReview = async (rev_id, likes) => {
+
+        //this.state.reviewID = rev_id
+        //this.state.likes = likes
+
+        token = await AsyncStorage.getItem('@session_token')
+        id = await AsyncStorage.getItem('@location_id')
+
+        if (this.state.likeIcon === 'thumbs-up-outline') {
+
+            //console.log(rev_id)
+            console.log('before' + likes)
+            return fetch("http://10.0.2.2:3333/api/1.0.0/location/" + id + '/review/' + rev_id + '/like',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Authorization': token
+                    },
+                })
+                .then((response) => {
+                    if (response.status === 200) {
+                        likes += 1
+                        this.setState({ 
+                            likeIcon: 'thumbs-up',
+                            likes: likes            
+                            })
+                        
+                        //updates - confusion as parameter is likes along with state
+                        console.log('after' + likes)
+
+                         this.returnLocation()
+                         this.forceUpdate()
+                         this.render()
+
+                        //FUCK OFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                        
+                    }
+                })
+                .catch((error) => {
+                    console.error(error + "ERROR 1");
+                })
+
+        }
+
+        else {
+            return fetch("http://10.0.2.2:3333/api/1.0.0/location/" + id + '/review/' + rev_id + '/like',
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Authorization': token
+                    },
+                })
+                .then((response) => {
+                    if (response.status === 200) {
+                        likes -= 1
+                        this.setState({ 
+                            likeIcon: 'thumbs-up-outline', 
+                            likes: likes  
+                        })
+                        this.returnLocation()
+                         this.forceUpdate()
+                         this.render()
+                        
+                        //ToastAndroid.show('Removed from favourites', ToastAndroid.SHORT)
+                    }
+                })
+                .catch((error) => {
+                    console.error(error + "ERROR 1");
+                })
+        }
+    }
+
     render() {
-        //console.log({location_id})
 
         return (
             <View>
                 <View style={styles.shop}>
-                    <Text 
+                    <Text
                         style={{ textAlign: 'center', fontWeight: 'bold' }}>
-                            {this.state.locName + '\n' + this.state.locTown}</Text>
+                        {this.state.locName + '\n' + this.state.locTown}</Text>
 
- 
-                        <TouchableHighlight style={{alignItems: 'center'}} onPress={() => this.addRemoveFavourite()}>
-                            {this.addRemoveFavourite()}
-                        </TouchableHighlight>
+
+                    <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => this.addRemoveFavourite()}>
+                        <Ionicons name={this.state.icon} style={{ color: 'red', fontSize: 18 }} />
+                    </TouchableOpacity>
 
 
                     <View style={styles.ratingView}>
@@ -202,37 +310,45 @@ class SearchResult extends React.Component {
                         <TouchableOpacity style={styles.mapButton}>
                             <Text style={styles.text2} >  Map</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.mapButton} >
+                        <TouchableOpacity style={styles.mapButton} onPress={() => this.toAddReview()} >
                             <Text style={styles.text2} >Review</Text>
                         </TouchableOpacity>
                     </View>
 
-                    <View style={{alignItems: 'center'}}>
+                    <View style={{ alignItems: 'center' }}>
                         <Image style={styles.image} source={require('../images/cup.jpg')}></Image>
                     </View>
                 </View>
 
-
+                <View style={styles.shop}>
                 <FlatList
-                    contentContainerStyle={{ height: 1000, width: 300 }}
+                    contentContainerStyle={{ height: 2000, marginTop: 10 }}
+                    // containerStyle={{ width: '100%', height: 1000 }}
                     data={this.state.LocReviews}
                     renderItem={({ item }) =>
 
 
-                        <Text style={{fontSize: 13}}>
+                        <Text style={{ fontSize: 13 }}>
                             User Review: {item.review_id + '\n'}
                                 Overall Rating:                     {this.IndividualReviewStars(item.overall_rating)}{'\n'}
                                 Price Rating:                        {this.IndividualReviewStars(item.price_rating)}{'\n'}
                                 Qiality Rating:                      {this.IndividualReviewStars(item.quality_rating)}{'\n'}
                                 Cleanliness Rating:             {this.IndividualReviewStars(item.clenliness_rating)}{'\n'}
                                 Comment:    {item.review_body + '\n'}
-                                Likes: {item.likes}{'\n'}
+                                Likes: {item.likes + ' '} 
                                 
+                                <TouchableOpacity onPress={() => this.likeDislikeReview(item.review_id, item.likes)}>
+                                    <Ionicons name={this.state.likeIcon} style={{color: '#2569fa', fontSize: 15}} />
+                                </TouchableOpacity>
+                                {'\n'}
                         </Text>
+                        
 
                     }
                     keyExtractor={(temp, index) => index.toString()}
                 />
+                </View>
+
 
 
             </View>
@@ -244,13 +360,3 @@ class SearchResult extends React.Component {
 
 export default SearchResult;
 
-
-
-
-// //<Rating 
-// type='custom'
-// showRating
-// onFinishRating={this.ratingCompleted} 
-// ratingColor={'#1dab40'}
-// ratingBackgroundColor={'#d1e8d7'}
-// />

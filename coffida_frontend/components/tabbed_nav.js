@@ -45,9 +45,7 @@ class TabbedNav extends Component{
                         iconName = focused ? 'cafe' : 'cafe-outline';
                     }
         
-                    //You can return any component that you like here!
                     return <Ionicons name={iconName} size={size} color={color} />;
-                     //return <Icon android="md-add" size={30} color='blue' />;
 
                      },
                 })}
