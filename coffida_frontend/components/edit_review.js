@@ -74,7 +74,13 @@ class EditReview extends Component {
         this.setState({ cleanlinessRating: rating })
     }
     handleInput = (reviewInput) => {
-        this.setState({ reviewText: reviewInput })
+        var comment = this.profanityFilter(reviewInput)
+        this.setState({ reviewText: comment })
+    }
+
+    profanityFilter = (input) =>{
+        let output = input.replace(/tea|cakes|pastries/gi, "****")
+        return output
     }
 
 
