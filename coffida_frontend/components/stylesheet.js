@@ -23,6 +23,22 @@ export default StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20,
         marginBottom: 5,
+        //height: 200,
+    },
+
+    shop2: {
+        //flex: 1,
+        borderWidth: 1,
+        borderColor: '#52e37b',
+        borderRadius: 6,
+        justifyContent: 'space-around',
+        flexDirection: 'column',
+        backgroundColor: '#d1e8d7',
+        paddingLeft: 20,
+        paddingRight: 20,
+        marginBottom: 2,
+        marginTop: 3,
+        height: 150,
     },
 
     star: {
@@ -62,6 +78,13 @@ export default StyleSheet.create({
         margin: 20,
     },
 
+    expandButton: {
+        width: 300,
+        height: 40,
+        backgroundColor: '#52e37b',
+        margin: 20,
+    },
+
     buttonRed: {
         width: 200,
         height: 40,
@@ -70,8 +93,15 @@ export default StyleSheet.create({
         margin: 20,
     },
 
+    buttonRemove: {
+        width: 100,
+        height: 20,
+        borderRadius: 20,
+        backgroundColor: '#ed6258',
+    },
+
     mapButton: {
-        flexDirection: 'row',
+        //flexDirection: 'row',
         width: 100,
         height: 20,
         backgroundColor: '#52e37b',
@@ -97,7 +127,7 @@ export default StyleSheet.create({
         fontSize: 12,
         textAlign: 'center',
         color: 'black',
-        paddingLeft: 30,
+        //paddingLeft: 30,
         
     },
 

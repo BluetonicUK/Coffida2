@@ -23,6 +23,7 @@ import EditDetails from './components/edit_details';
 import Logout from './components/logout';
 import SearchResult from './components/search_result';
 import AddReview from './components/add_review';
+import EditReview from './components/edit_review';
 
 
 
@@ -50,6 +51,7 @@ class App extends Component {
           <Stack.Screen name="Logout" component={Logout} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'}}}/>
           <Stack.Screen name="SearchResult" component={SearchResult} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'}}}/>
           <Stack.Screen name="Add Review" component={AddReview} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'} }} />
+          <Stack.Screen name="Edit Review" component={EditReview} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'} }} />
         </Stack.Navigator>
       </NavigationContainer>
     );

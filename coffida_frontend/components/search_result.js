@@ -308,7 +308,7 @@ class SearchResult extends React.Component {
 
                     <View style={styles.mapButtonView}>
                         <TouchableOpacity style={styles.mapButton}>
-                            <Text style={styles.text2} >  Map</Text>
+                            <Text style={styles.text2} >Map</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.mapButton} onPress={() => this.toAddReview()} >
                             <Text style={styles.text2} >Review</Text>
@@ -334,7 +334,7 @@ class SearchResult extends React.Component {
                                 Price Rating:                        {this.IndividualReviewStars(item.price_rating)}{'\n'}
                                 Qiality Rating:                      {this.IndividualReviewStars(item.quality_rating)}{'\n'}
                                 Cleanliness Rating:             {this.IndividualReviewStars(item.clenliness_rating)}{'\n'}
-                                Comment:    {item.review_body + '\n'}
+                                Comment:   <Text style={{fontStyle: 'italic'}}>{'\n' + item.review_body + '\n'}</Text> 
                                 Likes: {item.likes + ' '} 
                                 
                                 <TouchableOpacity onPress={() => this.likeDislikeReview(item.review_id, item.likes)}>
@@ -342,7 +342,6 @@ class SearchResult extends React.Component {
                                 </TouchableOpacity>
                                 {'\n'}
                         </Text>
-                        
 
                     }
                     keyExtractor={(temp, index) => index.toString()}
