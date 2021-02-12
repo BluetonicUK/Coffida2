@@ -1,5 +1,3 @@
-
-
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -10,10 +8,10 @@
 
 import 'react-native-gesture-handler';
 
-import React, { Component } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Text, View, Button } from 'react-native';
+import React, {Component} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {Text, View, Button} from 'react-native';
 import TabbedNav from './components/tabbed_nav';
 import Login from './components/login';
 import Register from './components/register';
@@ -25,39 +23,93 @@ import SearchResult from './components/search_result';
 import AddReview from './components/add_review';
 import EditReview from './components/edit_review';
 
-
-
-//const nav = this.props.navigation
-
-//const Stack = createStackNavigator();
-
 const Stack = createStackNavigator();
 
 class App extends Component {
-
-  static navigationOptions = { header: null }
+  static navigationOptions = {header: null};
 
   render() {
-
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-          <Stack.Screen name="Login" component={Login} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'}}}/>
-          <Stack.Screen name="Register" component={Register} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'}}} />
-          <Stack.Screen name="TabbedNav" component={TabbedNav} options={{ headerShown: false }} />
-          <Stack.Screen name="MyLocations" component={MyLocations} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'}}} />
-          <Stack.Screen name="EditDetails" component={EditDetails} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'}}} />
-          <Stack.Screen name="Logout" component={Logout} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'}}}/>
-          <Stack.Screen name="SearchResult" component={SearchResult} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'}}}/>
-          <Stack.Screen name="Add Review" component={AddReview} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'} }} />
-          <Stack.Screen name="Edit Review" component={EditReview} options={{ headerShown: true, headerStyle: {backgroundColor: '#52e37b'} }} />
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{
+              headerShown: true,
+              headerStyle: {backgroundColor: '#52e37b'},
+            }}
+          />
+          <Stack.Screen
+            name="Register"
+            component={Register}
+            options={{
+              headerShown: true,
+              headerStyle: {backgroundColor: '#52e37b'},
+            }}
+          />
+          <Stack.Screen
+            name="TabbedNav"
+            component={TabbedNav}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="MyLocations"
+            component={MyLocations}
+            options={{
+              headerShown: true,
+              headerStyle: {backgroundColor: '#52e37b'},
+            }}
+          />
+          <Stack.Screen
+            name="EditDetails"
+            component={EditDetails}
+            options={{
+              headerShown: true,
+              headerStyle: {backgroundColor: '#52e37b'},
+            }}
+          />
+          <Stack.Screen
+            name="Logout"
+            component={Logout}
+            options={{
+              headerShown: true,
+              headerStyle: {backgroundColor: '#52e37b'},
+            }}
+          />
+          <Stack.Screen
+            name="SearchResult"
+            component={SearchResult}
+            options={{
+              headerShown: true,
+              headerStyle: {backgroundColor: '#52e37b'},
+            }}
+          />
+          <Stack.Screen
+            name="Add Review"
+            component={AddReview}
+            options={{
+              headerShown: true,
+              headerStyle: {backgroundColor: '#52e37b'},
+            }}
+          />
+          <Stack.Screen
+            name="Edit Review"
+            component={EditReview}
+            options={{
+              headerShown: true,
+              headerStyle: {backgroundColor: '#52e37b'},
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );
   }
 }
-
-
 
 export default App;

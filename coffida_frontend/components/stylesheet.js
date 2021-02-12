@@ -23,6 +23,7 @@ export default StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20,
         marginBottom: 5,
+        width: '100%',
         //height: 200,
     },
 
@@ -38,7 +39,8 @@ export default StyleSheet.create({
         paddingRight: 20,
         marginBottom: 2,
         marginTop: 3,
-        height: 150,
+        height: '32%',
+        width: '100%'
     },
 
     star: {

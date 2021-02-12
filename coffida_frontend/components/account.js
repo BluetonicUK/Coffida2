@@ -1,23 +1,9 @@
-import React, { Component } from 'react';
-import { Text, View, Image, TouchableOpacity, ToastAndroid, Alert } from 'react-native';
-import styles from './stylesheet'
-import AsyncStorage from '@react-native-community/async-storage'
-
-//import UserHome from './user_home';
-import { ScrollView } from 'react-native-gesture-handler';
-import MyLocations from './my_locations'
-import EditDetails from './edit_details'
-
-
-// const Screen = {
-//   MyLoc: MyLocations,
-// };
-
-
+import React, {Component} from 'react';
+import {Text, View, Image, TouchableOpacity} from 'react-native';
+import styles from './stylesheet';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class Account extends Component {
-
-
   constructor(props) {
     super(props);
 
@@ -28,30 +14,25 @@ class Account extends Component {
       email: '',
       favourite_locations: [],
       reviews: [],
-      liked_reviews: []
-    }
+      liked_reviews: [],
+    };
   }
 
-
-
   getDetails = async () => {
-
-    token = await AsyncStorage.getItem('@session_token')
-    id = await AsyncStorage.getItem('@id')
-
-
+    const token = await AsyncStorage.getItem('@session_token');
+    const id = await AsyncStorage.getItem('@id');
+    const url = 'http://10.0.2.2:3333/api/1.0.0/user/' + id;
     try {
-      return fetch("http://10.0.2.2:3333/api/1.0.0/user/" + id,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Authorization': token
-          },
-        })
+      return fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Authorization': token,
+        },
+      })
         .then((response) => {
           if (response.status === 200) {
-            return response.json()
+            return response.json();
           }
         })
         .then((responseJson) => {
@@ -62,87 +43,76 @@ class Account extends Component {
             email: responseJson.email,
             favourite_locations: responseJson.favourite_locations,
             reviews: responseJson.reviews,
-            liked_reviews: responseJson.liked_reviews
-          })
+            liked_reviews: responseJson.liked_reviews,
+          });
         })
         .catch((error) => {
-          console.error(error + "ERROR 1");
-        })
+          console.error(error);
+        });
+    } catch (e) {
+      console.log(e);
     }
-    catch (e) {
-      console.log(e + "ERROR 2")
-    }
-
-  }
-
+  };
 
   componentDidMount() {
     this.getDetails();
   }
 
   toMyLocations() {
-    return (
-      this.props.navigation.navigate('MyLocations')
-    );
+    return this.props.navigation.navigate('MyLocations');
   }
 
   toEdit() {
-    return (
-      this.props.navigation.navigate('EditDetails')
-    );
+    return this.props.navigation.navigate('EditDetails');
   }
 
   toLogout = async () => {
+    const token = await AsyncStorage.getItem('@session_token');
+    const url = 'http://10.0.2.2:3333/api/1.0.0/user/logout';
 
-    token = await AsyncStorage.getItem('@session_token')
-    console.log(token)
-
-    return fetch("http://10.0.2.2:3333/api/1.0.0/user/logout",
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Authorization': token
-        },
-        //X-auth
-      })
+    return fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Authorization': token,
+      },
+    })
       .then((response) => {
         if (response.status === 200) {
           this.props.navigation.navigate('Logout');
         }
-
       })
       .catch((error) => {
         console.error(error);
       });
-
-  }
+  };
 
   time = () => {
     var hours = new Date().getHours();
-    if (hours >= 12 && hours < 17)
-      return "afternoon, "
-    else if (hours >= 17)
-      return "evening, "
-    else
-      return "morning, "
-
-  }
+    if (hours >= 12 && hours < 17) {
+      return 'afternoon, ';
+    } else if (hours >= 17) {
+      return 'evening, ';
+    } else {
+      return 'morning, ';
+    }
+  };
 
   render() {
-
-
-    const nav = this.props.navigation;
+    //const nav = this.props.navigation;
 
     return (
-
       <View style={styles.flexContainer}>
-
         <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
 
-        <Text style={styles.text}> Good {this.time() + this.state.firstname + "!"}</Text>
+        <Text style={styles.text}>
+          {' '}
+          Good {this.time() + this.state.firstname + '!'}
+        </Text>
 
-        <TouchableOpacity style={styles.button} onPress={() => this.toMyLocations()} >
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.toMyLocations()}>
           <Text style={styles.text}> My Locations </Text>
         </TouchableOpacity>
 
@@ -150,14 +120,13 @@ class Account extends Component {
           <Text style={styles.text}> Edit Details </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.buttonRed} onPress={() => this.toLogout()}>
+        <TouchableOpacity
+          style={styles.buttonRed}
+          onPress={() => this.toLogout()}>
           <Text style={styles.text}> Logout </Text>
         </TouchableOpacity>
-
       </View>
-
     );
-
   }
 }
 
