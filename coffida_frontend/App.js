@@ -22,6 +22,10 @@ import Logout from './components/logout';
 import SearchResult from './components/search_result';
 import AddReview from './components/add_review';
 import EditReview from './components/edit_review';
+import ReviewsHome from './components/reviews_home';
+import Favourites from './components/my_favourites';
+import MyReviews from './components/my_reviews';
+import MyLikedReviews from './components/my_liked_reviews';
 
 const Stack = createStackNavigator();
 
@@ -101,6 +105,38 @@ class App extends Component {
           <Stack.Screen
             name="Edit Review"
             component={EditReview}
+            options={{
+              headerShown: true,
+              headerStyle: {backgroundColor: '#52e37b'},
+            }}
+          />
+          <Stack.Screen
+            name="Reviews Home"
+            component={ReviewsHome}
+            options={{
+              headerShown: false,
+              headerStyle: {backgroundColor: '#52e37b'},
+            }}
+          />
+          <Stack.Screen
+            name="Favourites"
+            component={Favourites}
+            options={{
+              headerShown: true,
+              headerStyle: {backgroundColor: '#52e37b'},
+            }}
+          />
+          <Stack.Screen
+            name="My Reviews"
+            component={MyReviews}
+            options={{
+              headerShown: true,
+              headerStyle: {backgroundColor: '#52e37b'},
+            }}
+          />
+          <Stack.Screen
+            name="My Liked Reviews"
+            component={MyLikedReviews}
             options={{
               headerShown: true,
               headerStyle: {backgroundColor: '#52e37b'},

@@ -14,6 +14,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Account from './account';
 import Search from './search';
 import MyLocations from './my_locations';
+import ReviewsHome from './reviews_home';
 
 const Tab = createBottomTabNavigator();
 
@@ -50,7 +51,7 @@ class TabbedNav extends Component {
         }}>
         <Tab.Screen name="Account" component={Account} />
         <Tab.Screen name="Search" component={Search} />
-        <Tab.Screen name="Reviews" component={MyLocations} />
+        <Tab.Screen name="Reviews" component={ReviewsHome} />
       </Tab.Navigator>
     );
   }
