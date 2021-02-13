@@ -26,6 +26,7 @@ import ReviewsHome from './components/reviews_home';
 import Favourites from './components/my_favourites';
 import MyReviews from './components/my_reviews';
 import MyLikedReviews from './components/my_liked_reviews';
+import Map from './components/map';
 
 const Stack = createStackNavigator();
 
@@ -137,6 +138,14 @@ class App extends Component {
           <Stack.Screen
             name="My Liked Reviews"
             component={MyLikedReviews}
+            options={{
+              headerShown: true,
+              headerStyle: {backgroundColor: '#52e37b'},
+            }}
+          />
+          <Stack.Screen
+            name="Map"
+            component={Map}
             options={{
               headerShown: true,
               headerStyle: {backgroundColor: '#52e37b'},

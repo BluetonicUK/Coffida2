@@ -92,6 +92,12 @@ class SearchResult extends Component {
     }
   };
 
+  passCoordinates = async (lat, long) => {
+    await AsyncStorage.setItem('@latitude', JSON.stringify(lat));
+    await AsyncStorage.setItem('@longitude', JSON.stringify(long));
+    this.props.navigation.navigate('Map');
+  };
+
   returnMainReviewStars = (starRating) => {
     return (
       <StarRating
@@ -288,7 +294,11 @@ class SearchResult extends Component {
           </View>
 
           <View style={styles.mapButtonView}>
-            <TouchableOpacity style={styles.mapButton}>
+            <TouchableOpacity
+              style={styles.mapButton}
+              onPress={() =>
+                this.passCoordinates(this.state.lat, this.state.long)
+              }>
               <Text style={styles.text2}>Map</Text>
             </TouchableOpacity>
 

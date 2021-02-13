@@ -154,10 +154,9 @@ class MyReviews extends Component {
             <View>
               <View style={styles.flatlist4}>
                 <Text style={{textAlign: 'center', fontWeight: 'bold'}}>
-                  {item.location.location_name} {', '}
-                  {item.location.location_town} {'\n'}
+                  {'\n' + item.location.location_name + ', '}
+                  {item.location.location_town + '\n'}
                 </Text>
-
 
                 <Text style={{textAlign: 'center'}}>
                   Overall {'\n'}
@@ -184,7 +183,21 @@ class MyReviews extends Component {
                         item.review.review_id,
                       )
                     }>
-                    <Ionicons name="close-circle" size={20} color={'red'} />
+                    <Ionicons
+                      name="close-circle-outline"
+                      size={20}
+                      color={'red'}
+                    />
+                  </TouchableOpacity>
+                  {'    '}
+                  <TouchableOpacity
+                    onPress={() =>
+                      this.toEditReview(
+                        item.review.review_id,
+                        item.location.location_id,
+                      )
+                    }>
+                    <Ionicons name="create-outline" size={20} color={'blue'} />
                   </TouchableOpacity>
                 </Text>
               </View>

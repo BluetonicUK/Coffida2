@@ -96,7 +96,7 @@ class EditReview extends Component {
             style={styles.logo}
             source={require('../logos/Coffida1.png')}
           />
-
+          <Text style={{fontWeight: 'bold'}}> Edit Review</Text>
           <Text>Overall:</Text>
           <Text>
             <StarRating
