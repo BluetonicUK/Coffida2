@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">coffida_frontend</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyA4AJvYcXr-IccM6-ASoT6Uo-ugfHpwero</string>
 </resources>

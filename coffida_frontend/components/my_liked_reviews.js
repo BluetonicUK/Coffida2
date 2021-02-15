@@ -73,7 +73,7 @@ class MyLikedReviews extends Component {
     )
       .then((response) => {
         if (response.status === 200) {
-          likes -= 1;
+          //likes -= 1;
           ToastAndroid.show('Review Unliked', ToastAndroid.SHORT);
           this.returnLocation();
         }

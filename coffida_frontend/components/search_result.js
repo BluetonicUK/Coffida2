@@ -92,11 +92,11 @@ class SearchResult extends Component {
     }
   };
 
-  passCoordinates = async (lat, long) => {
-    await AsyncStorage.setItem('@latitude', JSON.stringify(lat));
-    await AsyncStorage.setItem('@longitude', JSON.stringify(long));
+  passCoordinates(lat, long) {
+    AsyncStorage.setItem('@latitude', JSON.stringify(lat));
+    AsyncStorage.setItem('@longitude', JSON.stringify(long));
     this.props.navigation.navigate('Map');
-  };
+  }
 
   returnMainReviewStars = (starRating) => {
     return (

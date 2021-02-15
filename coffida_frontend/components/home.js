@@ -7,7 +7,6 @@ import {
   Image,
 } from 'react-native';
 import styles from './stylesheet';
-//import {Button} from 'react-native-paper';
 
 class Home extends Component {
   constructor(props) {
