@@ -258,7 +258,6 @@ class SearchResult extends Component {
 
   render() {
     return (
-      <View>
         <View style={styles.shop}>
           <Text style={{textAlign: 'center', fontWeight: 'bold'}}>
             {this.state.locName + '\n' + this.state.locTown}
@@ -314,12 +313,12 @@ class SearchResult extends Component {
               style={styles.image}
               source={require('../images/cup.jpg')}></Image>
           </View>
-        </View>
+        {/* </View>
 
-        <View style={styles.shop}>
+        <View style={styles.shop}> */}
           <FlatList
-            contentContainerStyle={{height: 2000, marginTop: 10}}
-            // containerStyle={{ width: '100%', height: 1000 }}
+            //contentContainerStyle={{height: 2000, marginTop: 10}}
+            // style={{ width: '100%'}}
             data={this.state.LocReviews}
             renderItem={({item}) => (
               <Text style={{fontSize: 13}}>
@@ -355,7 +354,7 @@ class SearchResult extends Component {
             keyExtractor={(temp, index) => index.toString()}
           />
         </View>
-      </View>
+
     );
   }
 }

@@ -10,6 +10,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import Slider from '@react-native-community/slider';
 import styles from './stylesheet';
+import { ScrollView } from 'react-native-gesture-handler';
 
 class Search extends Component {
   constructor(props) {
@@ -31,6 +32,10 @@ class Search extends Component {
       minPrice: 0,
       minQuality: 0,
       minClean: 0,
+
+      loadingExtraData: false,
+      page:1,
+      loading: true,
 
     };
   }
@@ -177,65 +182,99 @@ class Search extends Component {
     );
   }
 
+  renderCustomItem = ({ item, index }) => {
+    return (
+      <TouchableOpacity
+      style={styles.flatlist}
+      onPress={() => this.selectResultID(item.location_id)}>
+        <View style={styles.resultsView}>
+          <Text >{item.location_name}</Text>
+          <Text>{item.location_town}</Text>   
+        </View>
+    </TouchableOpacity>
+      );
+    }
+
+  keyExtractor = (item, index) => {
+    item.toString()
+  }
+
+  LoadMoreData = () =>{
+    this.setState({
+    page:this.state.page+1
+    },()=>this.searchLocations())
+    }
+
   render() {
     //const nav = this.props.navigation;
     if (this.state.hasSubmitted === false) {
       return (
-        <View style={styles.flexContainer}>
-          <Image
-            style={styles.logo}
-            source={require('../logos/Coffida1.png')}
-          />
+        <ScrollView>
+          <View style={styles.flexContainer}>
+            <Image
+              style={styles.logo}
+              source={require('../logos/Coffida1.png')}
+            />
 
-          <Text style={styles.text}> Enter your search in the box below: </Text>
+            <Text style={styles.text}> Enter your search in the box below: </Text>
 
-          <TextInput
-            style={styles.input}
-            placeholder="Search:"
-            onChangeText={this.handleInput}
-            value={this.state.searchInput}
-          />
-          
-          <Text>Minmum Overall Rating {this.state.minOverall}</Text>
-          {this.overallSlider()}
-          <Text>Minmum Price Rating {this.state.minPrice}</Text>
-          {this.priceSlider()}
-          <Text>Minmum Quality Rating {this.state.minQuality}</Text>
-          {this.qaulSlider()}
-          <Text>Minmum Cleanliness Rating {this.state.minClean}</Text>
-          {this.cleanSlider()}
+            <TextInput
+              style={styles.input}
+              placeholder="Search:"
+              onChangeText={this.handleInput}
+              value={this.state.searchInput}
+            />
+            
+            <Text>Minmum Overall Rating {this.state.minOverall}</Text>
+            {this.overallSlider()}
+            <Text>Minmum Price Rating {this.state.minPrice}</Text>
+            {this.priceSlider()}
+            <Text>Minmum Quality Rating {this.state.minQuality}</Text>
+            {this.qaulSlider()}
+            <Text>Minmum Cleanliness Rating {this.state.minClean}</Text>
+            {this.cleanSlider()}
 
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              this.searchLocations();
-            }}>
-            <Text style={styles.text}> Submit </Text>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                this.searchLocations();
+              }}>
+              <Text style={styles.text}> Submit </Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       );
     } else if (this.state.hasSubmitted === true) {
       return (
-        <View style={styles.flexContainer}>
-          <TouchableOpacity style={styles.button} onPress={() => this.goBack()}>
-            <Text style={styles.text}> Back </Text>
-          </TouchableOpacity>
+          <View style={styles.flexContainer}>
+            <TouchableOpacity style={styles.button} onPress={() => this.goBack()}>
+              <Text style={styles.text}> Back </Text>
+            </TouchableOpacity>
 
-          <FlatList
-            data={this.state.locationList}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                style={styles.flatlist}
-                onPress={() => this.selectResultID(item.location_id)}>
-                <Text style={{textAlign: 'center'}}>
-                  {item.location_name}, {item.location_town}, {item.location_id}
-                </Text>
-              </TouchableOpacity>
-            )}
-            keyExtractor={(temp, index) => index.toString()}
-          />
-        </View>
+            <FlatList
+              data={this.state.locationList}
+              renderItem={this.renderCustomItem}
+              keyExtractor={this.keyExtractor}
+              onEndReachedThreshold={0}
+              onEndReached={this.LoadMoreData}
+              >
+            </FlatList>
+
+            {/* <FlatList
+              data={this.state.locationList}
+              renderItem={({item}) => (
+                <TouchableOpacity
+                  style={styles.flatlist}
+                  onPress={() => this.selectResultID(item.location_id)}>
+                  <Text style={{textAlign: 'center'}}>
+                    {item.location_name}, {item.location_town}, {item.location_id}
+                  </Text>
+                </TouchableOpacity>
+              )}
+              keyExtractor={(temp, index) => index.toString()}
+            /> */}
+          </View>
       );
     }
   }

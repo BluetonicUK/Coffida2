@@ -10,7 +10,7 @@ export default StyleSheet.create({
   },
 
   shop: {
-    //flex: 1,
+    flex: 1,
     borderWidth: 1,
     borderColor: '#52e37b',
     borderRadius: 6,
@@ -21,7 +21,6 @@ export default StyleSheet.create({
     paddingRight: 20,
     marginBottom: 5,
     width: '100%',
-    //height: 200,
   },
 
   shop2: {
@@ -52,6 +51,12 @@ export default StyleSheet.create({
   ratingView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+
+  resultsView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 30,
   },
 
   input: {
