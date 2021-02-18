@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Text, View, Image, TouchableOpacity} from 'react-native';
 import styles from './stylesheet';
 import AsyncStorage from '@react-native-community/async-storage';
+import { Button } from 'react-native-paper';
 
 class Account extends Component {
   constructor(props) {
@@ -107,24 +108,30 @@ class Account extends Component {
 
         <Text style={styles.text}>
           {' '}
-          Good {this.time() + this.state.firstname + '!'}
+          Good {this.time() + this.state.firstname + '!\n'}
         </Text>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.button}
           onPress={() => this.toMyLocations()}>
           <Text style={styles.text}> My Locations </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        <Button mode="contained" style={styles.paperButton} onPress={() => this.toEdit()}>
+          Edit Details
+        </Button>
+        <Button mode="contained" style={styles.buttonRed} onPress={() => this.toLogout()}>
+          Logout
+        </Button>
 
-        <TouchableOpacity style={styles.button} onPress={() => this.toEdit()}>
+        {/* <TouchableOpacity style={styles.button} onPress={() => this.toEdit()}>
           <Text style={styles.text}> Edit Details </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.buttonRed}
           onPress={() => this.toLogout()}>
           <Text style={styles.text}> Logout </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     );
   }

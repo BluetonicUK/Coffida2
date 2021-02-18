@@ -84,6 +84,13 @@ export default StyleSheet.create({
     margin: 20,
   },
 
+  paperInput: {
+    height: 45,
+    width: 200,
+    borderWidth: 0,
+    marginBottom: 20
+  },
+
   reviewInput: {
     borderWidth: 1,
     borderColor: '#52e37b',
@@ -100,10 +107,16 @@ export default StyleSheet.create({
     margin: 20,
   },
 
+  paperButton: {
+    width: 200,
+    height: 40,
+    backgroundColor: '#52e37b',
+    margin: 10,
+  },
+
   buttonRed: {
     width: 200,
     height: 40,
-    borderRadius: 20,
     backgroundColor: '#ed6258',
     margin: 20,
   },

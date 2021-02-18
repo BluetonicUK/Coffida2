@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, Image, TouchableOpacity} from 'react-native';
 import styles from './stylesheet';
+import { Button, TextInput } from 'react-native-paper';
 
 class Account extends Component {
   toLogin() {
@@ -14,9 +15,13 @@ class Account extends Component {
 
         <Text style={styles.text}> You have succesfully logged out</Text>
 
-        <TouchableOpacity style={styles.button} onPress={() => this.toLogin()}>
+        <Button mode="contained" style={styles.paperButton} onPress={() => this.toLogin()}>
+          Return Home
+        </Button>
+
+        {/* <TouchableOpacity style={styles.button} onPress={() => this.toLogin()}>
           <Text style={styles.text}> Login </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     );
   }

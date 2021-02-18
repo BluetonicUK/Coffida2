@@ -32,7 +32,7 @@ class Search extends Component {
       minPrice: 0,
       minQuality: 0,
       minClean: 0,
-
+      
       loadingExtraData: false,
       page:1,
       loading: true,

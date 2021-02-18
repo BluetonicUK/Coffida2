@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {
   Text,
   ScrollView,
-  TextInput,
+  //TextInput,
   TouchableOpacity,
   ToastAndroid,
   View,
@@ -10,6 +10,7 @@ import {
 import styles from './stylesheet';
 import {BarPasswordStrengthDisplay} from 'react-native-password-strength-meter';
 import AsyncStorage from '@react-native-community/async-storage';
+import { Button, TextInput } from 'react-native-paper';
 
 // FIX PATCH -> all fields need a value when patching - check null
 
@@ -99,32 +100,32 @@ class EditDetails extends Component {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.flexContainer}>
         <View style={styles.flexContainer}>
           <TextInput
-            style={styles.input}
-            placeholder="Enter First Name:"
+            style={styles.paperInput}
+            label="Enter First Name:"
             onChangeText={this.handleFirstName}
             value={this.state.firstname}
           />
 
           <TextInput
-            style={styles.input}
-            placeholder="Enter Surname:"
+            style={styles.paperInput}
+            label="Enter Surname:"
             onChangeText={this.handleSurname}
             value={this.state.surname}
           />
 
           <TextInput
-            style={styles.input}
-            placeholder="Enter email:"
+            style={styles.paperInput}
+            label="Enter email:"
             onChangeText={this.handleEmail}
             value={this.state.email}
           />
 
           <TextInput
-            style={styles.input}
-            placeholder="Enter password:"
+            style={styles.paperInput}
+            label="Enter password:"
             onChangeText={this.handlePassword}
             value={this.state.password}
             secureTextEntry
@@ -134,12 +135,16 @@ class EditDetails extends Component {
             width={200}
             minLength={1}
           />
-
-          <TouchableOpacity
+          
+          <Button mode="contained" style={styles.paperButton} onPress={() => this.submitChanges()}>
+            Submit Changes
+          </Button>
+        
+          {/* <TouchableOpacity
             style={styles.button}
             onPress={() => this.submitChanges()}>
             <Text style={styles.text}> Submit Changes </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </ScrollView>
     );

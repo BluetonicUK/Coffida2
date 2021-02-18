@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {
   Text,
   View,
-  TextInput,
+  //TextInput,
   TouchableOpacity,
   ToastAndroid,
   ActivityIndicator,
@@ -11,6 +11,8 @@ import {
 import styles from './stylesheet';
 //import TabbedNav from './tabbed_nav';
 import AsyncStorage from '@react-native-community/async-storage';
+import { Button, TextInput } from 'react-native-paper';
+import { ScrollView } from 'react-native-gesture-handler';
 
 class Login extends Component {
   constructor(props) {
@@ -86,28 +88,31 @@ class Login extends Component {
     //     );
     // }
     return (
-      <View style={styles.flexContainer}>
+      <ScrollView contentContainerStyle={styles.flexContainer}>
+      {/* <View > */}
         <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
 
         <TextInput
-          style={styles.input}
-          placeholder="Enter email:"
-          onChangeText={this.handleEmail}
+          style={styles.paperInput}
+          label="Email"
           value={this.state.loginEmail}
+          onChangeText={this.handleEmail}
+          mode={'outlined'}
         />
-
         <TextInput
-          style={styles.input}
-          placeholder="Enter password:"
-          onChangeText={this.handlePassword}
+          style={styles.paperInput}
+          label="Password"
           value={this.state.loginPassword}
-          secureTextEntry
+          onChangeText={this.handlePassword}
+          mode={'outlined'}
         />
 
-        <TouchableOpacity style={styles.button} onPress={() => this.logIn()}>
-          <Text style={styles.text}> Login </Text>
-        </TouchableOpacity>
-      </View>
+        <Button mode="contained" style={styles.paperButton} onPress={() => this.logIn()}>
+          Login
+        </Button>
+
+      {/* </View> */}
+      </ScrollView>
     );
   };
 }

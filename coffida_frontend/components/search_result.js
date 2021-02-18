@@ -39,14 +39,23 @@ class SearchResult extends Component {
       likeIcon: 'thumbs-up-outline',
       reviewID: 0,
       likes: 0,
+
+      serverResponse: 0,
+      urlRetuen: '',
     };
   }
 
-  componentDidMount() {
-    this.returnLocation();
+  componentDidMount = async () => {
+    await this.returnLocation();
+    //this.displayReviewPhoto();
+    // this.testImage();
+    
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    // this.displayReviewPhoto();
+    // this.testImage();
+  }
 
   toAddReview = () => {
     this.props.navigation.navigate('Add Review');
@@ -277,36 +286,67 @@ class SearchResult extends Component {
     const token = await AsyncStorage.getItem('@session_token');
     const id = await AsyncStorage.getItem('@location_id');
 
-    let url = 'http://10.0.2.2:3333/api/1.0.0/location/' + id + '/review/' + reviewID + '/photo?timestamp=' + Date.now();
-    console.log("******************************" + url);
-    return  url;
-    // try {
-    //    fetch(url, {
-    //     method: 'GET',
-    //     headers: {
-    //       'Content-Type': 'image/jpeg',
-    //       'X-Authorization': token,
-    //     },
-    //   })
-    //     .then(() => {
-    //       console.log(url);
-    //       return url
-    //       })
-    //     .catch((error) => {
-    //       console.error(error + 'ERROR 1');
-    //     });
-    // } catch (e) {
-    //   console.log(e + 'ERROR 2');
-    // }
+  let url = 'http://10.0.2.2:3333/api/1.0.0/location/' + id + '/review/' + reviewID + '/photo?timestamp=' + Date.now();
+    //console.log("******************************" + url);
+    
+    try {
+      return fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'image/jpeg',
+          'X-Authorization': token,
+        },
+      })
+        .then(async (response) => {
+          //if(response.status === 200) {
+          console.log("SERVER RESPONSE: " + response.status)
+          this.setState({serverResponse: response.status})
+          //return response.status
+          //}
+          //return response.status;
+      })
+        .catch((error) => {
+          console.error(error + 'ERROR 1');
+        });
+    } catch (e) {
+      console.log(e + 'ERROR 2');
+    }
   }
 
-  testImage = async () => {
-    return(
-      <Image></Image>
-    )
+  getServerResponse = async (reviewID) => {
+    let url = 'http://10.0.2.2:3333/api/1.0.0/location/' + this.state.locationID
+    + '/review/' + reviewID + '/photo/'; 
+    let response = await this.displayReviewPhoto(url)
+    console.log("FUNC RESPONSE: " + response)
+    //this.setState({serverResponse: response})
   }
 
-  render() {
+  testImage = (reviewID) => {
+    let url = 'http://10.0.2.2:3333/api/1.0.0/location/' + this.state.locationID
+    + '/review/' + reviewID + '/photo/'; 
+    let image = {
+      uri: url
+    }
+
+    this.displayReviewPhoto(reviewID);
+
+    if(this.state.serverResponse === 200){
+        //let response = await this.getServerResponse(reviewID);
+        //console.log("RESPONSE IN FUNC: " + response);
+          return (
+            <View>
+              <Image 
+                style={{height: 200, width: 200}}
+                source={image}>
+              </Image>
+            </View>
+          )
+    } else {
+        return 
+    }
+  }
+
+  render ()  {
     //console.log(this.displayReviewPhoto(20))
     return (
         <View style={styles.shop}>
@@ -381,13 +421,6 @@ class SearchResult extends Component {
                 <Text style={{fontStyle: 'italic'}}>
                   {'\n' + item.review_body + '\n'}
                 </Text>
-
-                <Image 
-                  style={{height: 100, width: 100}}
-                  source={{uri: 'http://10.0.2.2:3333/api/1.0.0/location/' + this.state.locationID + '/review/' + item.review_id + '/photo' }}>
-                </Image>
-                
-
                 Likes: {item.likes + ' '}
                 <TouchableOpacity
                   onPress={() =>
@@ -399,6 +432,9 @@ class SearchResult extends Component {
                   />
                 </TouchableOpacity>
                 {'\n'}
+                {this.testImage(item.review_id)}
+                {'\n'}
+
               </Text>
             )}
             keyExtractor={(temp, index) => index.toString()}

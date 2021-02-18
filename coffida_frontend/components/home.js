@@ -7,6 +7,7 @@ import {
   Image,
 } from 'react-native';
 import styles from './stylesheet';
+import { Button } from 'react-native-paper';
 
 class Home extends Component {
   constructor(props) {
@@ -22,18 +23,13 @@ class Home extends Component {
     return (
       <View style={styles.flexContainer}>
         <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => nav.navigate('Login')}>
-          <Text style={styles.text}> Login </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => nav.navigate('Register')}>
-          <Text style={styles.text}> Register </Text>
-        </TouchableOpacity>
+        
+        <Button style={styles.paperButton} mode="contained" onPress={() => nav.navigate('Login')}>
+          Login
+        </Button>
+        <Button style={styles.paperButton} mode="contained" onPress={() => nav.navigate('Register')}>
+          Register
+        </Button>
       </View>
     );
   }

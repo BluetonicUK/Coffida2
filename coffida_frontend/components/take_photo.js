@@ -25,7 +25,7 @@ class TakePhoto extends Component {
         const options = {quality: 0.5, base64: true};
         const data = await this.camera.takePictureAsync(options);
 
-        return fetch ('http://10.0.2.2:3333/api/1.0.0/location/' + locId + '/review/' + review_id + '/photo',
+        return fetch ('http://10.0.2.2:3333/api/1.0.0/location/' + locId + '/review/' + review_id + '/photo' + Date.now(),
         {
             method: 'POST',
             headers: {
