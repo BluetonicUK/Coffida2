@@ -7,10 +7,12 @@ import {
   ScrollView,
   Image,
   ToastAndroid,
+  Button,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import styles from './stylesheet';
 import StarRating from 'react-native-star-rating';
+
 
 class EditReview extends Component {
   constructor(props) {
@@ -88,6 +90,7 @@ class EditReview extends Component {
     return output;
   };
 
+  
   render() {
     return (
       <ScrollView>
@@ -163,6 +166,12 @@ class EditReview extends Component {
             onChangeText={this.handleInput}
             value={this.state.reviewText}
           />
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => this.props.navigation.navigate("Camera")}>
+            <Text style={styles.text}> Camera </Text>
+          </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.button}

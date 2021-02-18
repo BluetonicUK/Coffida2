@@ -196,7 +196,7 @@ class Search extends Component {
     }
 
   keyExtractor = (item, index) => {
-    item.toString()
+    index.toString()
   }
 
   LoadMoreData = () =>{
@@ -255,25 +255,11 @@ class Search extends Component {
             <FlatList
               data={this.state.locationList}
               renderItem={this.renderCustomItem}
-              keyExtractor={this.keyExtractor}
+              keyExtractor={(item, index) => index.toString()}
               onEndReachedThreshold={0}
               onEndReached={this.LoadMoreData}
               >
             </FlatList>
-
-            {/* <FlatList
-              data={this.state.locationList}
-              renderItem={({item}) => (
-                <TouchableOpacity
-                  style={styles.flatlist}
-                  onPress={() => this.selectResultID(item.location_id)}>
-                  <Text style={{textAlign: 'center'}}>
-                    {item.location_name}, {item.location_town}, {item.location_id}
-                  </Text>
-                </TouchableOpacity>
-              )}
-              keyExtractor={(temp, index) => index.toString()}
-            /> */}
           </View>
       );
     }

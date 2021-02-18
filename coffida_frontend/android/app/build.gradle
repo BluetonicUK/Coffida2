@@ -139,6 +139,7 @@ android {
         versionCode 1
         versionName "1.0"
 		multiDexEnabled true
+        missingDimensionStrategy 'react-native-camera', 'general'
 		
 		// Set the properties within `local.properties` into a `Properties` class so that values
         // within `local.properties` (e.g. Maps API key) are accessible in this file.

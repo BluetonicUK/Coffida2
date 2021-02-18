@@ -59,6 +59,20 @@ export default StyleSheet.create({
     paddingHorizontal: 30,
   },
 
+  test: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: 'black',
+    backgroundColor: '#d1e8d7',
+    justifyContent: 'center',
+  },
+  camera: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    
+  },
+
   input: {
     borderWidth: 1,
     borderColor: '#52e37b',

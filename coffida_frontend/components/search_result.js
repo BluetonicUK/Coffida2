@@ -71,6 +71,7 @@ class SearchResult extends Component {
         })
         .then(async (responseJson) => {
           this.setState({
+            locationID: responseJson.location_id,
             locName: responseJson.location_name,
             locTown: responseJson.location_town,
             lat: responseJson.latitude,
@@ -256,7 +257,57 @@ class SearchResult extends Component {
     }
   };
 
+  displayCafephoto(){
+    if(this.state.photoPath != ''){
+      return(
+        <View style={{alignItems: 'center'}}>
+            <Image
+              style={styles.image}
+              source={{uri: this.state.photoPath}}>
+            </Image>
+          </View>
+      );
+    }
+    else {
+      return;
+    }
+  }
+
+  displayReviewPhoto = async (reviewID) => {
+    const token = await AsyncStorage.getItem('@session_token');
+    const id = await AsyncStorage.getItem('@location_id');
+
+    let url = 'http://10.0.2.2:3333/api/1.0.0/location/' + id + '/review/' + reviewID + '/photo?timestamp=' + Date.now();
+    console.log("******************************" + url);
+    return  url;
+    // try {
+    //    fetch(url, {
+    //     method: 'GET',
+    //     headers: {
+    //       'Content-Type': 'image/jpeg',
+    //       'X-Authorization': token,
+    //     },
+    //   })
+    //     .then(() => {
+    //       console.log(url);
+    //       return url
+    //       })
+    //     .catch((error) => {
+    //       console.error(error + 'ERROR 1');
+    //     });
+    // } catch (e) {
+    //   console.log(e + 'ERROR 2');
+    // }
+  }
+
+  testImage = async () => {
+    return(
+      <Image></Image>
+    )
+  }
+
   render() {
+    //console.log(this.displayReviewPhoto(20))
     return (
         <View style={styles.shop}>
           <Text style={{textAlign: 'center', fontWeight: 'bold'}}>
@@ -307,18 +358,10 @@ class SearchResult extends Component {
               <Text style={styles.text2}>Review</Text>
             </TouchableOpacity>
           </View>
+          {this.displayCafephoto()}
 
-          <View style={{alignItems: 'center'}}>
-            <Image
-              style={styles.image}
-              source={require('../images/cup.jpg')}></Image>
-          </View>
-        {/* </View>
-
-        <View style={styles.shop}> */}
+          
           <FlatList
-            //contentContainerStyle={{height: 2000, marginTop: 10}}
-            // style={{ width: '100%'}}
             data={this.state.LocReviews}
             renderItem={({item}) => (
               <Text style={{fontSize: 13}}>
@@ -338,6 +381,13 @@ class SearchResult extends Component {
                 <Text style={{fontStyle: 'italic'}}>
                   {'\n' + item.review_body + '\n'}
                 </Text>
+
+                <Image 
+                  style={{height: 100, width: 100}}
+                  source={{uri: 'http://10.0.2.2:3333/api/1.0.0/location/' + this.state.locationID + '/review/' + item.review_id + '/photo' }}>
+                </Image>
+                
+
                 Likes: {item.likes + ' '}
                 <TouchableOpacity
                   onPress={() =>
