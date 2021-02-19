@@ -105,6 +105,7 @@ class Login extends Component {
           value={this.state.loginPassword}
           onChangeText={this.handlePassword}
           mode={'outlined'}
+          secureTextEntry
         />
 
         <Button mode="contained" style={styles.paperButton} onPress={() => this.logIn()}>

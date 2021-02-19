@@ -11,6 +11,8 @@ import styles from './stylesheet';
 import AsyncStorage from '@react-native-community/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import StarRating from 'react-native-star-rating';
+import Photo from './image';
+
 
 class MyReviews extends Component {
   constructor(props) {
@@ -21,6 +23,7 @@ class MyReviews extends Component {
       locReviews: [],
       reviews: [],
       likedReviews: [],
+      //displayImage: true,
     };
   }
 
@@ -140,7 +143,11 @@ class MyReviews extends Component {
       });
   };
 
-  render() {
+  onErrorLoadingImage =  () => {
+     this.setState({displayImage: false})
+  }
+
+  render() {  
     return (
       <View style={styles.flexContainer}>
         <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
@@ -153,10 +160,16 @@ class MyReviews extends Component {
           renderItem={({item, index}) => (
             <View>
               <View style={styles.flatlist4}>
+
                 <Text style={{textAlign: 'center', fontWeight: 'bold'}}>
                   {'\n' + item.location.location_name + ', '}
                   {item.location.location_town + '\n'}
                 </Text>
+
+                <Photo
+                  location_id ={item.location.location_id}
+                  review_id={item.review.review_id}
+                />
 
                 <Text style={{textAlign: 'center'}}>
                   Overall {'\n'}

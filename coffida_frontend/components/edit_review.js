@@ -2,16 +2,18 @@ import React, {Component} from 'react';
 import {
   Text,
   View,
-  TextInput,
+  //TextInput,
   TouchableOpacity,
   ScrollView,
   Image,
   ToastAndroid,
-  Button,
+  //Button,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import styles from './stylesheet';
 import StarRating from 'react-native-star-rating';
+import { Button, TextInput } from 'react-native-paper';
+
 
 
 class EditReview extends Component {
@@ -93,7 +95,7 @@ class EditReview extends Component {
   
   render() {
     return (
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.flexContainer}>
         <View style={styles.flexContainer}>
           <Image
             style={styles.logo}
@@ -160,24 +162,21 @@ class EditReview extends Component {
           <Text>Comments: </Text>
 
           <TextInput
-            style={styles.reviewInput}
+            style={styles.paperInput}
             multiline={true}
-            placeholder="Enter review"
+            label="Enter review"
             onChangeText={this.handleInput}
             value={this.state.reviewText}
           />
+          <View style={styles.mapButtonView}>
+            <Button mode="contained" style={styles.mapButton} onPress={() => this.editReview()}>
+              Edit Review
+            </Button>
+            <Button icon='camera' mode="contained" style={styles.mapButton} onPress={() => this.props.navigation.navigate("Camera")}>
+              Camera
+            </Button>
+          </View>
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.props.navigation.navigate("Camera")}>
-            <Text style={styles.text}> Camera </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.editReview()}>
-            <Text style={styles.text}> Edit Review </Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
     );

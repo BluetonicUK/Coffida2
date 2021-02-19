@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {
   Text,
   Image,
-  TextInput,
+  //TextInput,
   ScrollView,
   TouchableOpacity,
   View,
@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {BarPasswordStrengthDisplay} from 'react-native-password-strength-meter';
 import styles from './stylesheet';
+import { Button, TextInput } from 'react-native-paper';
 
 class Register extends Component {
   constructor(props) {
@@ -91,7 +92,7 @@ class Register extends Component {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.flexContainer}>
         <View style={styles.flexContainer}>
           <Image
             style={styles.logo}
@@ -99,29 +100,29 @@ class Register extends Component {
           />
 
           <TextInput
-            style={styles.input}
-            placeholder="Enter First Name:"
+            style={styles.paperInput}
+            label="Enter First Name:"
             onChangeText={this.handleFirstName}
             value={this.state.firstname}
           />
 
           <TextInput
-            style={styles.input}
-            placeholder="Enter Surname:"
+            style={styles.paperInput}
+            label="Enter Surname:"
             onChangeText={this.handleSurname}
             value={this.state.surname}
           />
 
           <TextInput
-            style={styles.input}
-            placeholder="Enter email:"
+            style={styles.paperInput}
+            label="Enter email:"
             onChangeText={this.handleEmail}
             value={this.state.loginEmail}
           />
 
           <TextInput
-            style={styles.input}
-            placeholder="Enter password:"
+            style={styles.paperInput}
+            label="Enter password:"
             onChangeText={this.handlePassword}
             value={this.state.loginPassword}
             secureTextEntry
@@ -132,11 +133,10 @@ class Register extends Component {
             minLength={1}
           />
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.register()}>
-            <Text style={styles.text}> Register User </Text>
-          </TouchableOpacity>
+          <Button mode="contained" style={styles.paperButton} onPress={() => this.register()}>
+            Register User
+          </Button>
+
         </View>
       </ScrollView>
     );

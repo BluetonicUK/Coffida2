@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {
   Text,
   View,
-  TextInput,
+  //TextInput,
   TouchableOpacity,
   Image,
   FlatList,
@@ -11,6 +11,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Slider from '@react-native-community/slider';
 import styles from './stylesheet';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Button, TextInput } from 'react-native-paper';
 
 class Search extends Component {
   constructor(props) {
@@ -219,7 +220,7 @@ class Search extends Component {
             <Text style={styles.text}> Enter your search in the box below: </Text>
 
             <TextInput
-              style={styles.input}
+              style={styles.paperInput}
               placeholder="Search:"
               onChangeText={this.handleInput}
               value={this.state.searchInput}
@@ -234,23 +235,29 @@ class Search extends Component {
             <Text>Minmum Cleanliness Rating {this.state.minClean}</Text>
             {this.cleanSlider()}
 
-
+            <Button mode="contained" style={styles.paperButton} onPress={() => {this.searchLocations()}}>
+              Submit
+            </Button>
+{/* 
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
                 this.searchLocations();
               }}>
               <Text style={styles.text}> Submit </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </ScrollView>
       );
     } else if (this.state.hasSubmitted === true) {
       return (
           <View style={styles.flexContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => this.goBack()}>
+            {/* <TouchableOpacity style={styles.button} onPress={() => this.goBack()}>
               <Text style={styles.text}> Back </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            <Button mode="contained" style={styles.paperButton} onPress={() => this.goBack()}>
+              Go Back
+            </Button>
 
             <FlatList
               data={this.state.locationList}

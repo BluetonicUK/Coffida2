@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, Image, TouchableOpacity} from 'react-native';
 import styles from './stylesheet';
+import { Button } from 'react-native-paper';
 
 class ReviewsHome extends Component {
   constructor(props) {
@@ -15,23 +16,15 @@ class ReviewsHome extends Component {
 
         <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => this.props.navigation.navigate('Favourites')}>
-          <Text style={styles.text}> My Favourites </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => this.props.navigation.navigate('My Reviews')}>
-          <Text style={styles.text}> My Reviews </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => this.props.navigation.navigate('My Liked Reviews')}>
-          <Text style={styles.text}> My Liked Reviews </Text>
-        </TouchableOpacity>
+        <Button mode="contained" style={styles.paperButton} onPress={() => this.props.navigation.navigate('Favourites')}>
+          My Favourites
+        </Button>
+          <Button mode="contained" style={styles.paperButton} onPress={() => this.props.navigation.navigate('My Reviews')}>
+          My Reviews
+        </Button>
+          <Button mode="contained" style={styles.paperButton} onPress={() => this.props.navigation.navigate('My Liked Reviews')}>
+          My Liked Reviews
+        </Button>
       </View>
     );
   }

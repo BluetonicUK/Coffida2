@@ -11,9 +11,8 @@ import styles from './stylesheet';
 import AsyncStorage from '@react-native-community/async-storage';
 import StarRating from 'react-native-star-rating';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
-// const token = AsyncStorage.getItem('@session_token');
-// const id = AsyncStorage.getItem('@location_id');
+import { Button } from 'react-native-paper';
+import Photo from './image';
 
 class SearchResult extends Component {
   constructor(props) {
@@ -42,19 +41,12 @@ class SearchResult extends Component {
 
       serverResponse: 0,
       urlRetuen: '',
+      displayImage: true,
     };
   }
 
   componentDidMount = async () => {
     await this.returnLocation();
-    //this.displayReviewPhoto();
-    // this.testImage();
-    
-  }
-
-  componentWillUnmount() {
-    // this.displayReviewPhoto();
-    // this.testImage();
   }
 
   toAddReview = () => {
@@ -282,70 +274,6 @@ class SearchResult extends Component {
     }
   }
 
-  displayReviewPhoto = async (reviewID) => {
-    const token = await AsyncStorage.getItem('@session_token');
-    const id = await AsyncStorage.getItem('@location_id');
-
-  let url = 'http://10.0.2.2:3333/api/1.0.0/location/' + id + '/review/' + reviewID + '/photo?timestamp=' + Date.now();
-    //console.log("******************************" + url);
-    
-    try {
-      return fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'image/jpeg',
-          'X-Authorization': token,
-        },
-      })
-        .then(async (response) => {
-          //if(response.status === 200) {
-          console.log("SERVER RESPONSE: " + response.status)
-          this.setState({serverResponse: response.status})
-          //return response.status
-          //}
-          //return response.status;
-      })
-        .catch((error) => {
-          console.error(error + 'ERROR 1');
-        });
-    } catch (e) {
-      console.log(e + 'ERROR 2');
-    }
-  }
-
-  getServerResponse = async (reviewID) => {
-    let url = 'http://10.0.2.2:3333/api/1.0.0/location/' + this.state.locationID
-    + '/review/' + reviewID + '/photo/'; 
-    let response = await this.displayReviewPhoto(url)
-    console.log("FUNC RESPONSE: " + response)
-    //this.setState({serverResponse: response})
-  }
-
-  testImage = (reviewID) => {
-    let url = 'http://10.0.2.2:3333/api/1.0.0/location/' + this.state.locationID
-    + '/review/' + reviewID + '/photo/'; 
-    let image = {
-      uri: url
-    }
-
-    this.displayReviewPhoto(reviewID);
-
-    if(this.state.serverResponse === 200){
-        //let response = await this.getServerResponse(reviewID);
-        //console.log("RESPONSE IN FUNC: " + response);
-          return (
-            <View>
-              <Image 
-                style={{height: 200, width: 200}}
-                source={image}>
-              </Image>
-            </View>
-          )
-    } else {
-        return 
-    }
-  }
-
   render ()  {
     //console.log(this.displayReviewPhoto(20))
     return (
@@ -384,19 +312,13 @@ class SearchResult extends Component {
           </View>
 
           <View style={styles.mapButtonView}>
-            <TouchableOpacity
-              style={styles.mapButton}
-              onPress={() =>
-                this.passCoordinates(this.state.lat, this.state.long)
-              }>
-              <Text style={styles.text2}>Map</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.mapButton}
-              onPress={() => this.toAddReview()}>
-              <Text style={styles.text2}>Review</Text>
-            </TouchableOpacity>
+            <Button mode="contained" style={styles.mapButton} onPress={() =>
+                this.passCoordinates(this.state.lat, this.state.long)}>
+              Map
+            </Button>
+            <Button mode="contained" style={styles.mapButton} onPress={() => this.toAddReview()}>
+              Add Review
+            </Button>
           </View>
           {this.displayCafephoto()}
 
@@ -404,6 +326,8 @@ class SearchResult extends Component {
           <FlatList
             data={this.state.LocReviews}
             renderItem={({item}) => (
+              <View>
+              {/* // <View style={styles.flatlist2}>  */}
               <Text style={{fontSize: 13}}>
                 User Review: {item.review_id + '\n'}
                 Overall Rating:{' '}
@@ -432,12 +356,19 @@ class SearchResult extends Component {
                   />
                 </TouchableOpacity>
                 {'\n'}
-                {this.testImage(item.review_id)}
-                {'\n'}
 
+                
+
+                {'\n'}
               </Text>
+              <Photo
+                  location_id ={this.state.locationID}
+                  review_id={item.review_id}
+                />
+              </View>
             )}
             keyExtractor={(temp, index) => index.toString()}
+            
           />
         </View>
 

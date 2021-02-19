@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {
   Text,
   View,
-  TextInput,
+  //TextInput,
   TouchableOpacity,
   ScrollView,
   Image,
@@ -11,6 +11,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import styles from './stylesheet';
 import StarRating from 'react-native-star-rating';
+import { Button, TextInput } from 'react-native-paper';
 
 class AddReview extends Component {
   constructor(props) {
@@ -148,21 +149,24 @@ class AddReview extends Component {
             {'\n'}
           </Text>
 
-          <Text>Comments: </Text>
-
           <TextInput
-            style={styles.reviewInput}
+            style={styles.paperInput}
             multiline={true}
-            placeholder="Enter review"
+            label="Enter review"
             onChangeText={this.handleInput}
             value={this.state.reviewText}
+            multiline={true}
+            numberOfLines={3}
           />
+          <View style={styles.mapButtonView}>
+            <Button mode="contained" style={styles.mapButton} onPress={() => this.addReview()}>
+              Add Review
+            </Button>
+            <Button icon='camera' mode="contained" style={styles.mapButton} onPress={() => this.props.navigation.navigate("Camera")}>
+              Camera
+            </Button>
+          </View>
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.addReview()}>
-            <Text style={styles.text}> Submit Review </Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
     );
