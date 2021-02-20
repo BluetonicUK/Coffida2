@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {
-  Text,
   ScrollView,
-  //TextInput,
-  TouchableOpacity,
+  Image,
   ToastAndroid,
   View,
 } from 'react-native';
@@ -19,10 +17,11 @@ class EditDetails extends Component {
     super(props);
 
     this.state = {
-      firstname: null,
-      surname: null,
-      email: null,
+      firstname: '',
+      surname: '',
+      email: '',
       password: '',
+      passwordView: false, 
     };
   }
 
@@ -40,9 +39,44 @@ class EditDetails extends Component {
     this.setState({email: email});
   };
 
-  handlePassword = (password) => {
-    this.setState({password: password});
-  };
+
+
+  componentDidMount(){
+    this.getUserDetails();
+  }
+
+  getUserDetails = async () => {
+    const token = await AsyncStorage.getItem('@session_token');
+    const userID = await AsyncStorage.getItem('@id');
+
+      return fetch('http://10.0.2.2:3333/api/1.0.0/user/' + userID, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Authorization': token},
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json();
+          } else if (response.status === 400) {
+            ToastAndroid.show('Invalid credentials', ToastAndroid.SHORT);
+          } else {
+            ToastAndroid.show('Sorry there is a problem', ToastAndroid.SHORT);
+          }
+        })
+        .then( async (responseJson) => {
+          this,this.setState({
+            firstname: responseJson.first_name,
+            surname: responseJson.last_name,
+            email: responseJson.email,
+          })
+          console.log("NAME: " + this.state.firstname)
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  
 
   //works but need to do checking logic - check with Ash abotu back end as each field needs an entry.
   submitChanges = async () => {
@@ -51,10 +85,13 @@ class EditDetails extends Component {
     console.log(id);
     console.log(token);
 
-    var validator = require('email-validator');
+    // var validator = require('email-validator');
+    // console.log(this.state.email)
 
-    // if(validator.validate(this.state.loginEmail) === false)
-    //     ToastAndroid.show("Enter a valid email address", ToastAndroid.SHORT)
+    // if(validator.validate(this.state.loginEmail) === false){
+    //     ToastAndroid.show("Enter a valid email address", ToastAndroid.LONG)
+    //     return
+    // }
     // else if(this.state.loginPassword.length < 6)
     //     ToastAndroid.show("Password must be longer than 6 characters", ToastAndroid.SHORT)
 
@@ -68,12 +105,12 @@ class EditDetails extends Component {
         first_name: this.state.firstname,
         last_name: this.state.surname,
         email: this.state.email,
-        password: this.state.password,
       }),
     })
       .then((response) => {
         if (response.status === 200) {
           ToastAndroid.show('Successfully Updated Details', ToastAndroid.SHORT);
+          this.props.navigation.navigate("Change Password");
         } else if (response.status === 400) {
           ToastAndroid.show('Bad Request', ToastAndroid.SHORT);
         } else if (response.status === 401) {
@@ -102,6 +139,7 @@ class EditDetails extends Component {
     return (
       <ScrollView contentContainerStyle={styles.flexContainer}>
         <View style={styles.flexContainer}>
+        <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
           <TextInput
             style={styles.paperInput}
             label="Enter First Name:"
@@ -123,7 +161,7 @@ class EditDetails extends Component {
             value={this.state.email}
           />
 
-          <TextInput
+          {/* <TextInput
             style={styles.paperInput}
             label="Enter password:"
             onChangeText={this.handlePassword}
@@ -134,17 +172,11 @@ class EditDetails extends Component {
             password={this.state.password}
             width={200}
             minLength={1}
-          />
+          /> */}
           
           <Button mode="contained" style={styles.paperButton} onPress={() => this.submitChanges()}>
             Submit Changes
           </Button>
-        
-          {/* <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.submitChanges()}>
-            <Text style={styles.text}> Submit Changes </Text>
-          </TouchableOpacity> */}
         </View>
       </ScrollView>
     );

@@ -1,18 +1,14 @@
 import React, {Component} from 'react';
 import {
-  Text,
-  View,
-  //TextInput,
-  TouchableOpacity,
   ToastAndroid,
   ActivityIndicator,
   Image,
+  ScrollView,
 } from 'react-native';
 import styles from './stylesheet';
 //import TabbedNav from './tabbed_nav';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Button, TextInput } from 'react-native-paper';
-import { ScrollView } from 'react-native-gesture-handler';
 
 class Login extends Component {
   constructor(props) {
@@ -64,11 +60,7 @@ class Login extends Component {
           console.log(responseJson);
           await AsyncStorage.setItem('@session_token', responseJson.token);
           await AsyncStorage.setItem('@id', JSON.stringify(responseJson.id));
-          //await AsyncStorage.setItem(Parseint(id), responseJson.id)
           this.props.navigation.navigate('TabbedNav');
-          console.log(responseJson.token);
-          console.log(responseJson.id);
-          //NEED TO KNOW HOW TO GET STORAGE ITEMS
         })
         .catch((error) => {
           console.error(error);

@@ -162,9 +162,9 @@ class AddReview extends Component {
             <Button mode="contained" style={styles.mapButton} onPress={() => this.addReview()}>
               Add Review
             </Button>
-            <Button icon='camera' mode="contained" style={styles.mapButton} onPress={() => this.props.navigation.navigate("Camera")}>
+            {/* <Button icon='camera' mode="contained" style={styles.mapButton} onPress={() => this.props.navigation.navigate("Camera")}>
               Camera
-            </Button>
+            </Button> */}
           </View>
 
         </View>

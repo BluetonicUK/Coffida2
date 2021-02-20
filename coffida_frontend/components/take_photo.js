@@ -2,16 +2,13 @@ import React, {Component} from 'react';
 import {
   Text,
   View,
-  TextInput,
   TouchableOpacity,
-  ScrollView,
-  Image,
   ToastAndroid,
-  Button,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import styles from './stylesheet';
 import {RNCamera} from 'react-native-camera'
+import { Button } from 'react-native-paper';
 
 class TakePhoto extends Component {
 
@@ -21,11 +18,12 @@ class TakePhoto extends Component {
         const token = await AsyncStorage.getItem('@session_token');
         const review_id = await AsyncStorage.getItem('@review_id');
         const locId = await AsyncStorage.getItem('@loc_review_id');
+        
         if(this.camera) {
         const options = {quality: 0.5, base64: true};
         const data = await this.camera.takePictureAsync(options);
 
-        return fetch ('http://10.0.2.2:3333/api/1.0.0/location/' + locId + '/review/' + review_id + '/photo' + Date.now(),
+        return fetch ('http://10.0.2.2:3333/api/1.0.0/location/' + locId + '/review/' + review_id + '/photo', //?timestamp=' + Date.now(),
         {
             method: 'POST',
             headers: {
@@ -37,6 +35,7 @@ class TakePhoto extends Component {
         .then((response) => {
             if(response.status === 200){
                 ToastAndroid.show('Picture Added', ToastAndroid.SHORT);
+                this.props.navigation.navigate('Search');
             }
             else{
                 ToastAndroid.show(JSON.stringify(response.status), ToastAndroid.SHORT); 
@@ -58,14 +57,19 @@ class TakePhoto extends Component {
                     }
                     style={styles.camera}
                     />
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                     title='take photo' onPress={() => this.takePicture()}
-                    />
-                    <TouchableOpacity
+                    /> */}
+                    {/* <TouchableOpacity
                         style={styles.button}
                         onPress={() => this.takePicture()}>
                         <Text style={styles.text}> Take Photo </Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
+                    <View style={{justifyContent: 'center', flexDirection: 'row'}}>
+                        <Button  icon='camera' mode="contained" style={styles.mapButton} onPress={() => this.takePicture()}>
+                            Take Photo
+                        </Button>
+                    </View>
                 </View>
         );
     }

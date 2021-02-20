@@ -238,14 +238,6 @@ class Search extends Component {
             <Button mode="contained" style={styles.paperButton} onPress={() => {this.searchLocations()}}>
               Submit
             </Button>
-{/* 
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                this.searchLocations();
-              }}>
-              <Text style={styles.text}> Submit </Text>
-            </TouchableOpacity> */}
           </View>
         </ScrollView>
       );

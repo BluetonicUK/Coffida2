@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 import {Text, View, Image, TouchableOpacity} from 'react-native';
 import styles from './stylesheet';
 import { Button, TextInput } from 'react-native-paper';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class Account extends Component {
-  toLogin() {
+  toLogin = async () => {
+    AsyncStorage.clear();
     return this.props.navigation.navigate('Home');
   }
 
@@ -13,15 +15,11 @@ class Account extends Component {
       <View style={styles.flexContainer}>
         <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
 
-        <Text style={styles.text}> You have succesfully logged out</Text>
+        <Text style={styles.text}>You have succesfully logged out</Text>
 
         <Button mode="contained" style={styles.paperButton} onPress={() => this.toLogin()}>
           Return Home
         </Button>
-
-        {/* <TouchableOpacity style={styles.button} onPress={() => this.toLogin()}>
-          <Text style={styles.text}> Login </Text>
-        </TouchableOpacity> */}
       </View>
     );
   }

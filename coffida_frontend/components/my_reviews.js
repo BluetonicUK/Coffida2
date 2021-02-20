@@ -11,7 +11,7 @@ import styles from './stylesheet';
 import AsyncStorage from '@react-native-community/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import StarRating from 'react-native-star-rating';
-import Photo from './image';
+import Photo from './photo';
 
 
 class MyReviews extends Component {
@@ -143,9 +143,7 @@ class MyReviews extends Component {
       });
   };
 
-  onErrorLoadingImage =  () => {
-     this.setState({displayImage: false})
-  }
+
 
   render() {  
     return (

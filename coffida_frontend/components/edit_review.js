@@ -173,7 +173,7 @@ class EditReview extends Component {
               Edit Review
             </Button>
             <Button icon='camera' mode="contained" style={styles.mapButton} onPress={() => this.props.navigation.navigate("Camera")}>
-              Camera
+              Add Photo
             </Button>
           </View>
 

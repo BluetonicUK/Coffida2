@@ -12,7 +12,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import StarRating from 'react-native-star-rating';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Button } from 'react-native-paper';
-import Photo from './image';
+import Photo from './photo';
 
 class SearchResult extends Component {
   constructor(props) {
@@ -357,9 +357,6 @@ class SearchResult extends Component {
                 </TouchableOpacity>
                 {'\n'}
 
-                
-
-                {'\n'}
               </Text>
               <Photo
                   location_id ={this.state.locationID}
