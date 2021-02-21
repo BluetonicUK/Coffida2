@@ -60,7 +60,7 @@ class Photo extends Component {
     render = () => {
         return(
         this.state.displayImage ? (
-          <View>
+          <View style={{alignItems: 'center'}}>
             <Image 
               style={{width: 300, height: 300}}
               source={{uri: 
@@ -73,7 +73,7 @@ class Photo extends Component {
               <Text style={{textAlign: 'center', textDecorationLine: 'underline', color: 'red'}}>Delete Photo</Text>
             </TouchableOpacity>
           </View>               
-              ) : ( <Text>..</Text> )
+              ) : ( <Text></Text> )
         )
     };
   }

@@ -184,9 +184,9 @@ export default StyleSheet.create({
   },
 
   flatlist2: {
-    flex: 1,
-    paddingHorizontal: 55,
-    flexDirection: 'row',
+    //flex: 1,
+    //paddingHorizontal: 55,
+    flexDirection: 'column',
     justifyContent: 'space-between',
     textAlign: 'center',
     paddingTop: 10,

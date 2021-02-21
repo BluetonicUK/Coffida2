@@ -182,6 +182,13 @@ class SearchResult extends Component {
     }
   };
 
+  returnLikeIcon = (revID) => {
+    if (this.state.likeIcon === 'thumbs-up-outline')
+      return 'thumbs-up'
+    else
+      return 'thumbs-up-outline'
+  }
+
   likeDislikeReview = async (rev_id, likes) => {
     //this.state.reviewID = rev_id
     //this.state.likes = likes
@@ -210,16 +217,13 @@ class SearchResult extends Component {
           if (response.status === 200) {
             likes += 1;
             this.setState({
-              likeIcon: 'thumbs-up',
+              likeIcon: 'thumbs-up',    //each review needs it's own state. not gonna have time.
               likes: likes,
             });
 
             //updates - confusion as parameter is likes along with state
             console.log('after' + likes);
-
             this.returnLocation();
-            this.forceUpdate();
-            this.render();
           }
         })
         .catch((error) => {
@@ -326,9 +330,9 @@ class SearchResult extends Component {
           <FlatList
             data={this.state.LocReviews}
             renderItem={({item}) => (
-              <View>
-              {/* // <View style={styles.flatlist2}>  */}
-              <Text style={{fontSize: 13}}>
+              // <View>
+              <View style={styles.flatlist2}>
+              <Text style={styles.flatlist2}>
                 User Review: {item.review_id + '\n'}
                 Overall Rating:{' '}
                 {this.IndividualReviewStars(item.overall_rating)}

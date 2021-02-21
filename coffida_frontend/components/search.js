@@ -196,14 +196,11 @@ class Search extends Component {
       );
     }
 
-  keyExtractor = (item, index) => {
-    index.toString()
-  }
-
   LoadMoreData = () =>{
     this.setState({
-    page:this.state.page+1
-    },()=>this.searchLocations())
+      page:this.state.page+1
+    },
+    ()=>this.searchLocations())
     }
 
   render() {

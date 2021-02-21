@@ -165,7 +165,7 @@ class App extends Component {
             name="Change Password"
             component={ChangePassword}
             options={{
-              headerShown: true,
+              headerShown: false,
               headerStyle: {backgroundColor: '#52e37b'},
             }}
           />

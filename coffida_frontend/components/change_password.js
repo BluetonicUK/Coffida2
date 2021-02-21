@@ -22,7 +22,6 @@ class ChangePassword extends Component {
       };
     }
 
-
     submitChanges = async () => {
         const id = await AsyncStorage.getItem('@id');
         const token = await AsyncStorage.getItem('@session_token');
@@ -34,7 +33,7 @@ class ChangePassword extends Component {
             'X-Authorization': token,
             },
             body: JSON.stringify({
-            password: this.state.password,
+                password: this.state.password,
             }),
         })
             .then((response) => {
@@ -60,7 +59,7 @@ class ChangePassword extends Component {
             }
             })
             .catch((error) => {
-            console.error(error);
+                throw error;
             });
         };
 
@@ -73,6 +72,7 @@ class ChangePassword extends Component {
             return(
                 <ScrollView contentContainerStyle={styles.flexContainer}>
                     <View style={styles.flexContainer}>
+                        
                         <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
                         <Text>Would you like to change your password?</Text>
                         <Button mode="contained" style={styles.paperButton} onPress={() => this.props.navigation.navigate("Account")}>
@@ -90,7 +90,9 @@ class ChangePassword extends Component {
                 <ScrollView contentContainerStyle={styles.flexContainer}>
                     <View style={styles.flexContainer}>
                     <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
-
+                    <Button mode="contained" style={styles.paperButton} onPress={() => this.setState({changePassword: false})}>
+                        Back
+                    </Button>
 
                     <TextInput
                         style={styles.paperInput}
