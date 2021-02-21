@@ -18,6 +18,7 @@ class ChangePassword extends Component {
   
       this.state = {
         password: '',
+        passwordCheck: '',
         changePassword: false, 
       };
     }
@@ -26,6 +27,13 @@ class ChangePassword extends Component {
         const id = await AsyncStorage.getItem('@id');
         const token = await AsyncStorage.getItem('@session_token');
 
+        if(this.state.password.length < 6){
+            ToastAndroid.show("Password must be longer than 6 characters", ToastAndroid.SHORT)
+        }
+        else if(this.state.password != this.state.passwordCheck){
+            ToastAndroid.show("Password must match", ToastAndroid.SHORT)
+        }
+        else{
         return fetch('http://10.0.2.2:3333/api/1.0.0/user/' + id, {
             method: 'PATCH',
             headers: {
@@ -61,10 +69,14 @@ class ChangePassword extends Component {
             .catch((error) => {
                 throw error;
             });
-        };
+        }
+    };
 
     handlePassword = (password) => {
         this.setState({password: password});
+    };
+    handlePasswordCheck = (password) => {
+        this.setState({passwordCheck: password});
     };
 
     render() {
@@ -99,6 +111,18 @@ class ChangePassword extends Component {
                         label="Enter new password:"
                         onChangeText={this.handlePassword}
                         value={this.state.password}
+                        secureTextEntry
+                    />
+                    <BarPasswordStrengthDisplay
+                        password={this.state.password}
+                        width={200}
+                        minLength={1}
+                    />
+                    <TextInput
+                        style={styles.paperInput}
+                        label="Confirm password:"
+                        onChangeText={this.handlePasswordCheck}
+                        value={this.state.passwordCheck}
                         secureTextEntry
                     />
                     <BarPasswordStrengthDisplay

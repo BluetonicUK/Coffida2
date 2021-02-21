@@ -9,6 +9,7 @@ import styles from './stylesheet';
 //import TabbedNav from './tabbed_nav';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Button, TextInput } from 'react-native-paper';
+import { LogBox } from 'react-native';
 
 class Login extends Component {
   constructor(props) {
@@ -32,6 +33,7 @@ class Login extends Component {
   };
 
   logIn() {
+    LogBox.ignoreAllLogs(); //stops the responseJson.token being undefined in a popup.
     var validator = require('email-validator');
 
     if (validator.validate(this.state.loginEmail) === false) {
@@ -49,11 +51,10 @@ class Login extends Component {
           if (response.status === 200) {
             return response.json();
           } else if (response.status === 400) {
-            ToastAndroid.show('Invalid credentials', ToastAndroid.SHORT);
+              ToastAndroid.show('Invalid credentials', ToastAndroid.SHORT);          
           } else {
-            ToastAndroid.show('Sorry there is a problem', ToastAndroid.SHORT);
+              ToastAndroid.show('Sorry there is a problem', ToastAndroid.SHORT);
           }
-
           this.setState({isLoading: false});
         })
         .then(async (responseJson) => {

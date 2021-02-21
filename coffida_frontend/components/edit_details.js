@@ -4,6 +4,7 @@ import {
   Image,
   ToastAndroid,
   View,
+  Text,
 } from 'react-native';
 import styles from './stylesheet';
 import {BarPasswordStrengthDisplay} from 'react-native-password-strength-meter';
@@ -92,9 +93,8 @@ class EditDetails extends Component {
     //     ToastAndroid.show("Enter a valid email address", ToastAndroid.LONG)
     //     return
     // }
-    // else if(this.state.loginPassword.length < 6)
-    //     ToastAndroid.show("Password must be longer than 6 characters", ToastAndroid.SHORT)
-
+    
+    
     return fetch('http://10.0.2.2:3333/api/1.0.0/user/' + id, {
       method: 'PATCH',
       headers: {
@@ -109,7 +109,7 @@ class EditDetails extends Component {
     })
       .then((response) => {
         if (response.status === 200) {
-          ToastAndroid.show('Successfully Updated Details', ToastAndroid.SHORT);
+          ToastAndroid.show('Successfully Changed Password', ToastAndroid.SHORT);
           this.props.navigation.navigate("Change Password");
         } else if (response.status === 400) {
           ToastAndroid.show('Bad Request', ToastAndroid.SHORT);
@@ -133,6 +133,7 @@ class EditDetails extends Component {
       .catch((error) => {
         console.error(error);
       });
+    
   };
 
   render() {
@@ -140,6 +141,7 @@ class EditDetails extends Component {
       <ScrollView contentContainerStyle={styles.flexContainer}>
         <View style={styles.flexContainer}>
         <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
+          
           <TextInput
             style={styles.paperInput}
             label="Enter First Name:"
@@ -160,23 +162,11 @@ class EditDetails extends Component {
             onChangeText={this.handleEmail}
             value={this.state.email}
           />
-
-          {/* <TextInput
-            style={styles.paperInput}
-            label="Enter password:"
-            onChangeText={this.handlePassword}
-            value={this.state.password}
-            secureTextEntry
-          />
-          <BarPasswordStrengthDisplay
-            password={this.state.password}
-            width={200}
-            minLength={1}
-          /> */}
           
           <Button mode="contained" style={styles.paperButton} onPress={() => this.submitChanges()}>
             Submit Changes
           </Button>
+          <Text>You can change your password after submitting changes</Text>
         </View>
       </ScrollView>
     );

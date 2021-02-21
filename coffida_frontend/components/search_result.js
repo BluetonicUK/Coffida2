@@ -94,9 +94,10 @@ class SearchResult extends Component {
     }
   };
 
-  passCoordinates(lat, long) {
+  passCoordinates(lat, long, cafeName) {
     AsyncStorage.setItem('@latitude', JSON.stringify(lat));
     AsyncStorage.setItem('@longitude', JSON.stringify(long));
+    AsyncStorage.setItem('@cafe_name', cafeName);
     this.props.navigation.navigate('Map');
   }
 
@@ -317,7 +318,7 @@ class SearchResult extends Component {
 
           <View style={styles.mapButtonView}>
             <Button mode="contained" style={styles.mapButton} onPress={() =>
-                this.passCoordinates(this.state.lat, this.state.long)}>
+                this.passCoordinates(this.state.lat, this.state.long, this.state.locName)}>
               Map
             </Button>
             <Button mode="contained" style={styles.mapButton} onPress={() => this.toAddReview()}>

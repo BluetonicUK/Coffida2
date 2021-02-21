@@ -26,6 +26,7 @@
     "react-native-gesture-handler": "^1.9.0",
     "react-native-ionicons": "^4.6.5",
     "react-native-maps": "^0.27.1",
+    "react-native-maps-directions": "^1.8.0",
     "react-native-paper": "^4.7.1",
     "react-native-password-strength-meter": "0.0.5",
     "react-native-reanimated": "^1.13.2",
