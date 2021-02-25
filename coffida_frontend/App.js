@@ -9,7 +9,7 @@
 import 'react-native-gesture-handler';
 
 import React, {Component} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, DarkTheme} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Text, View, Button} from 'react-native';
 import TabbedNav from './components/tabbed_nav';
@@ -29,6 +29,7 @@ import MyLikedReviews from './components/my_liked_reviews';
 import Map from './components/map';
 import TakePhoto from './components/take_photo';
 import ChangePassword from './components/change_password';
+import {Provider as PaperProvider, DarkTheme as PaperDarkTheme} from 'react-native-paper'
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,8 @@ class App extends Component {
 
   render() {
     return (
+      // <PaperProvider theme={PaperDarkTheme}>
+      // <NavigationContainer theme={DarkTheme}>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
@@ -171,6 +174,7 @@ class App extends Component {
           />
         </Stack.Navigator>
       </NavigationContainer>
+
     );
   }
 }

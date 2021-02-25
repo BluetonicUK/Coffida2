@@ -275,7 +275,7 @@ class SearchResult extends Component {
       );
     }
     else {
-      return;
+      return <View></View>;
     }
   }
 
@@ -361,12 +361,11 @@ class SearchResult extends Component {
                   />
                 </TouchableOpacity>
                 {'\n'}
-
-              </Text>
-              <Photo
+                <Photo
                   location_id ={this.state.locationID}
                   review_id={item.review_id}
                 />
+              </Text>
               </View>
             )}
             keyExtractor={(temp, index) => index.toString()}

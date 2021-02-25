@@ -87,7 +87,7 @@ export default StyleSheet.create({
     height: 45,
     width: 200,
     borderWidth: 0,
-    marginBottom: 20
+    marginBottom: 2
   },
 
   reviewInput: {
@@ -185,8 +185,8 @@ export default StyleSheet.create({
 
   flatlist2: {
     //flex: 1,
-    //paddingHorizontal: 55,
-    flexDirection: 'column',
+    paddingHorizontal: 55,
+    flexDirection: 'row',
     justifyContent: 'space-between',
     textAlign: 'center',
     paddingTop: 10,

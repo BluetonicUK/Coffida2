@@ -129,7 +129,7 @@ class Map extends Component {
     // const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
     return (
-      <View style={{width: '100%', height: '90%'}}>
+      <View style={{width: '100%', height: '93%'}}>
         <MapView
           provider={PROVIDER_GOOGLE}
           style={{width: '100%', height: '100%'}}
@@ -150,6 +150,7 @@ class Map extends Component {
             style={{flex: 1}}
             title='My Location'
             description="Me"
+            
           />
           <MapViewDirections
             origin={this.state.myLatLong}
@@ -169,7 +170,7 @@ class Map extends Component {
           />
           
         </MapView>
-        <View style={{backgroundColor: '#52e37b'}}>
+        <View style={{backgroundColor: '#52e37b', paddingVertical: 5}}>
             <Text style={{textAlign: 'center'}}>
               Distance: {this.state.distance.toFixed(2) + ' Km\n'}
               Duration: {this.state.duration.toFixed(2) + ' minutes'}
