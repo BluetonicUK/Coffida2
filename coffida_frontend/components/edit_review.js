@@ -1,20 +1,18 @@
+/* eslint-disable lines-between-class-members */
+/* eslint-disable camelcase */
+/* eslint-disable consistent-return */
+/* eslint-disable global-require */
+/* eslint-disable prefer-template */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/sort-comp */
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  //TextInput,
-  TouchableOpacity,
-  ScrollView,
-  Image,
-  ToastAndroid,
-  //Button,
-} from 'react-native';
+import {Text, View, ScrollView, Image, ToastAndroid} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import styles from './stylesheet';
 import StarRating from 'react-native-star-rating';
-import { Button, TextInput } from 'react-native-paper';
-
-
+import {Button, TextInput} from 'react-native-paper';
+import styles from './stylesheet';
 
 class EditReview extends Component {
   constructor(props) {
@@ -26,7 +24,6 @@ class EditReview extends Component {
       qualityRating: 0,
       cleanlinessRating: 0,
       reviewText: '',
-      starCount: 0,
     };
   }
 
@@ -83,16 +80,15 @@ class EditReview extends Component {
     this.setState({cleanlinessRating: rating});
   }
   handleInput = (reviewInput) => {
-    let comment = this.profanityFilter(reviewInput);
+    const comment = this.profanityFilter(reviewInput);
     this.setState({reviewText: comment});
   };
 
   profanityFilter = (input) => {
-    let output = input.replace(/tea|cakes|pastries/gi, '****');
+    const output = input.replace(/tea|cakes|pastries/gi, '****');
     return output;
   };
 
-  
   render() {
     return (
       <ScrollView contentContainerStyle={styles.flexContainer}>
@@ -110,8 +106,8 @@ class EditReview extends Component {
               maxStars={5}
               rating={this.state.overallRating}
               selectedStar={(rating) => this.onOverallRating(rating)}
-              emptyStarColor={'#a9abb0'}
-              fullStarColor={'#1dab40'}
+              emptyStarColor="#a9abb0"
+              fullStarColor="#1dab40"
               starSize={18}
             />
           </Text>
@@ -124,8 +120,8 @@ class EditReview extends Component {
               maxStars={5}
               rating={this.state.priceRating}
               selectedStar={(rating) => this.onPriceRating(rating)}
-              emptyStarColor={'#a9abb0'}
-              fullStarColor={'#1dab40'}
+              emptyStarColor="#a9abb0"
+              fullStarColor="#1dab40"
               starSize={18}
             />
           </Text>
@@ -138,8 +134,8 @@ class EditReview extends Component {
               maxStars={5}
               rating={this.state.qualityRating}
               selectedStar={(rating) => this.onQualityRating(rating)}
-              emptyStarColor={'#a9abb0'}
-              fullStarColor={'#1dab40'}
+              emptyStarColor="#a9abb0"
+              fullStarColor="#1dab40"
               starSize={18}
             />
           </Text>
@@ -152,8 +148,8 @@ class EditReview extends Component {
               maxStars={5}
               rating={this.state.cleanlinessRating}
               selectedStar={(rating) => this.onCleanlinessRating(rating)}
-              emptyStarColor={'#a9abb0'}
-              fullStarColor={'#1dab40'}
+              emptyStarColor="#a9abb0"
+              fullStarColor="#1dab40"
               starSize={18}
             />
             {'\n'}
@@ -163,20 +159,26 @@ class EditReview extends Component {
 
           <TextInput
             style={styles.paperInput}
-            multiline={true}
+            multiline
             label="Enter review"
             onChangeText={this.handleInput}
             value={this.state.reviewText}
           />
           <View style={styles.mapButtonView}>
-            <Button mode="contained" style={styles.mapButton} onPress={() => this.editReview()}>
+            <Button
+              mode="contained"
+              style={styles.mapButton}
+              onPress={() => this.editReview()}>
               Edit Review
             </Button>
-            <Button icon='camera' mode="contained" style={styles.mapButton} onPress={() => this.props.navigation.navigate("Camera")}>
+            <Button
+              icon="camera"
+              mode="contained"
+              style={styles.mapButton}
+              onPress={() => this.props.navigation.navigate('Camera')}>
               Add Photo
             </Button>
           </View>
-
         </View>
       </ScrollView>
     );

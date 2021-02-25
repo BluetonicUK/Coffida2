@@ -61,7 +61,6 @@ export default StyleSheet.create({
   test: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'black',
     backgroundColor: '#d1e8d7',
     justifyContent: 'center',
   },
@@ -69,7 +68,6 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    
   },
 
   input: {
@@ -87,7 +85,7 @@ export default StyleSheet.create({
     height: 45,
     width: 200,
     borderWidth: 0,
-    marginBottom: 2
+    marginBottom: 2,
   },
 
   reviewInput: {
@@ -151,7 +149,6 @@ export default StyleSheet.create({
     fontSize: 12,
     textAlign: 'center',
     color: 'black',
-    //paddingLeft: 30,
   },
 
   passwordBar: {
@@ -184,7 +181,6 @@ export default StyleSheet.create({
   },
 
   flatlist2: {
-    //flex: 1,
     paddingHorizontal: 55,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -204,7 +200,6 @@ export default StyleSheet.create({
 
   flatlist4: {
     paddingHorizontal: 55,
-    //flexDirection: 'row',
     justifyContent: 'center',
     textAlign: 'center',
     borderBottomWidth: 1,

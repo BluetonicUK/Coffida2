@@ -1,3 +1,12 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-unused-vars */
+/* eslint-disable global-require */
+/* eslint-disable react/prop-types */
+/* eslint-disable prefer-template */
+/* eslint-disable react/sort-comp */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/jsx-filename-extension */
 import React, {Component} from 'react';
 import {
   View,
@@ -7,9 +16,9 @@ import {
   Image,
   FlatList,
 } from 'react-native';
-import styles from './stylesheet';
 import AsyncStorage from '@react-native-community/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import styles from './stylesheet';
 
 class Favourites extends Component {
   constructor(props) {
@@ -42,7 +51,7 @@ class Favourites extends Component {
         .then(async (responseJson) => {
           this.setState({
             faveLocations: responseJson.favourite_locations,
-            locReviews: responseJson.favourite_locations.location_reviews, //array
+            locReviews: responseJson.favourite_locations.location_reviews,
             reviews: responseJson.reviews,
             likedReviews: responseJson.liked_reviews,
           });
@@ -59,8 +68,12 @@ class Favourites extends Component {
     this.returnLocation();
   }
 
-  visitLocation = async (locID) => {
-    locID = await AsyncStorage.setItem('@location_id', JSON.stringify(locID));
+  visitLocation = async () => {
+    const locID = await AsyncStorage.setItem(
+      '@location_id',
+      // eslint-disable-next-line no-use-before-define
+      JSON.stringify(locID),
+    );
     this.props.navigation.navigate('SearchResult');
   };
 
@@ -86,7 +99,7 @@ class Favourites extends Component {
         }
       })
       .catch((error) => {
-        console.error(error);
+        throw error;
       });
   };
 
@@ -97,7 +110,7 @@ class Favourites extends Component {
 
         <FlatList
           style={{width: '100%'}}
-          //contentContainerStyle={{marginTop: 10, paddingBottom: 40}}
+          // contentContainerStyle={{marginTop: 10, paddingBottom: 40}}
           data={this.state.faveLocations}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item, index}) => (
@@ -110,7 +123,7 @@ class Favourites extends Component {
                     <Ionicons
                       name="arrow-forward-circle"
                       size={20}
-                      color={'green'}
+                      color="green"
                     />
                   </TouchableOpacity>
                 </Text>
@@ -120,7 +133,7 @@ class Favourites extends Component {
                 <Text>
                   <TouchableOpacity
                     onPress={() => this.deleteFavourite(item.location_id)}>
-                    <Ionicons name="heart-dislike" size={20} color={'red'} />
+                    <Ionicons name="heart-dislike" size={20} color="red" />
                   </TouchableOpacity>
                 </Text>
               </View>

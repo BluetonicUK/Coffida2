@@ -1,18 +1,19 @@
+/* eslint-disable prefer-template */
+/* eslint-disable lines-between-class-members */
+/* eslint-disable react/sort-comp */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/jsx-filename-extension */
+
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  Dimensions,
-  Alert,
-  PermissionsAndroid,
-} from 'react-native';
+import {Text, View, Dimensions, Alert, PermissionsAndroid} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Geolocation from 'react-native-geolocation-service';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
-import styles from './stylesheet';
 
 async function requestLocationPermission() {
+  // eslint-disable-next-line no-useless-catch
   try {
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
@@ -21,12 +22,11 @@ async function requestLocationPermission() {
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
       console.log('SUCCESS LOCATION GRANTED');
       return true;
-    } else {
-      console.log('Permission denied');
-      return false;
     }
+    console.log('Permission denied');
+    return false;
   } catch (e) {
-    console.log(e);
+    throw e;
   }
 }
 
@@ -85,8 +85,8 @@ class Map extends Component {
     const lat = await AsyncStorage.getItem('@latitude');
     const long = await AsyncStorage.getItem('@longitude');
     const CafeName = await AsyncStorage.getItem('@cafe_name');
-    console.log('LATITUDE: ' + lat);
-    console.log('LONGITUDE: ' + long);
+    // console.log('LATITUDE: ' + lat);
+    // console.log('LONGITUDE: ' + long);
     this.setState({
       cafe_name: CafeName,
       latLong: {
@@ -104,24 +104,25 @@ class Map extends Component {
   }
 
   returnAverageLat = () => {
-    let avgLat = (this.state.latLong.latitude + this.state.myLatLong.latitude) / 2;
-    console.log("CAFE LAT: " + this.state.latLong.latitude)
-    console.log("MY LAT: " + this.state.myLatLong.latitude)
-    console.log("inbetween" + avgLat)
+    const avgLat =
+      (this.state.latLong.latitude + this.state.myLatLong.latitude) / 2;
+    console.log('CAFE LAT: ' + this.state.latLong.latitude);
+    console.log('MY LAT: ' + this.state.myLatLong.latitude);
+    console.log('inbetween' + avgLat);
     return avgLat;
-  }
+  };
   returnAverageLong = () => {
-    let avgLong = (this.state.latLong.longitude + this.state.myLatLong.longitude) / 2;
+    const avgLong =
+      (this.state.latLong.longitude + this.state.myLatLong.longitude) / 2;
     return avgLong;
-  }
+  };
   returnDistDur = (distance, duration) => {
     this.setState({
-      distance: distance,
-      duration: duration,  
-    })
-  }
+      distance,
+      duration,
+    });
+  };
 
-  
   render() {
     // const { width, height } = Dimensions.get('window');
     // const ASPECT_RATIO = width / height;
@@ -135,7 +136,7 @@ class Map extends Component {
           style={{width: '100%', height: '100%'}}
           region={{
             latitude: this.returnAverageLat(),
-            longitude: this.returnAverageLong(), 
+            longitude: this.returnAverageLong(),
             latitudeDelta: 0.8,
             longitudeDelta: 0.8,
           }}>
@@ -148,34 +149,31 @@ class Map extends Component {
           <Marker
             coordinate={this.state.myLatLong}
             style={{flex: 1}}
-            title='My Location'
+            title="My Location"
             description="Me"
-            
           />
           <MapViewDirections
             origin={this.state.myLatLong}
             destination={this.state.latLong}
-            apikey='AIzaSyA4AJvYcXr-IccM6-ASoT6Uo-ugfHpwero'
+            apikey="AIzaSyA4AJvYcXr-IccM6-ASoT6Uo-ugfHpwero"
             strokeWidth={3}
             strokeColor="hotpink"
             // onStart={(params) => {
             //   console.log(`Started routing between "${params.origin}" and "${params.destination}"`);
             // }}
-            onReady={result => {
+            onReady={(result) => {
               this.returnDistDur(result.distance, result.duration);
               console.log(`Distance: ${result.distance} km`);
               console.log(`Duration: ${result.duration} min.`);
             }}
-            
           />
-          
         </MapView>
         <View style={{backgroundColor: '#52e37b', paddingVertical: 5}}>
-            <Text style={{textAlign: 'center'}}>
-              Distance: {this.state.distance.toFixed(2) + ' Km\n'}
-              Duration: {this.state.duration.toFixed(2) + ' minutes'}
-            </Text>
-          </View>
+          <Text style={{textAlign: 'center'}}>
+            Distance: {this.state.distance.toFixed(2) + ' Km\n'}
+            Duration: {this.state.duration.toFixed(2) + ' minutes'}
+          </Text>
+        </View>
       </View>
     );
   }

@@ -1,15 +1,14 @@
+/* eslint-disable react/no-unused-state */
+/* eslint-disable consistent-return */
+/* eslint-disable global-require */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/prop-types */
 import React, {Component} from 'react';
-import {
-  ToastAndroid,
-  ActivityIndicator,
-  Image,
-  ScrollView,
-} from 'react-native';
-import styles from './stylesheet';
-//import TabbedNav from './tabbed_nav';
+import {ToastAndroid, Image, ScrollView, LogBox} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Button, TextInput } from 'react-native-paper';
-import { LogBox } from 'react-native';
+import {Button, TextInput} from 'react-native-paper';
+import styles from './stylesheet';
 
 class Login extends Component {
   constructor(props) {
@@ -17,10 +16,8 @@ class Login extends Component {
 
     this.state = {
       isLoading: false,
-      id: '',
       loginEmail: 'joz@joz.com',
       loginPassword: 'hello123',
-      session_token: '',
     };
   }
 
@@ -33,8 +30,8 @@ class Login extends Component {
   };
 
   logIn() {
-    LogBox.ignoreAllLogs(); //stops the responseJson.token being undefined in a popup.
-    var validator = require('email-validator');
+    LogBox.ignoreAllLogs(); // stops the responseJson.token being undefined in a popup.
+    const validator = require('email-validator');
 
     if (validator.validate(this.state.loginEmail) === false) {
       ToastAndroid.show('Enter a valid email address', ToastAndroid.SHORT);
@@ -50,10 +47,11 @@ class Login extends Component {
         .then((response) => {
           if (response.status === 200) {
             return response.json();
-          } else if (response.status === 400) {
-              ToastAndroid.show('Invalid credentials', ToastAndroid.SHORT);          
+          }
+          if (response.status === 400) {
+            ToastAndroid.show('Invalid credentials', ToastAndroid.SHORT);
           } else {
-              ToastAndroid.show('Sorry there is a problem', ToastAndroid.SHORT);
+            ToastAndroid.show('Sorry there is a problem', ToastAndroid.SHORT);
           }
           this.setState({isLoading: false});
         })
@@ -64,13 +62,13 @@ class Login extends Component {
           this.props.navigation.navigate('TabbedNav');
         })
         .catch((error) => {
-          console.error(error);
+          throw error;
         });
     }
   }
 
   render = () => {
-    //const nav = this.props.navigation;
+    // const nav = this.props.navigation;
     // if(this.state.ActivityIndicator){
     //     return(
     //         <View>
@@ -82,7 +80,7 @@ class Login extends Component {
     // }
     return (
       <ScrollView contentContainerStyle={styles.flexContainer}>
-      {/* <View > */}
+        {/* <View > */}
         <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
 
         <TextInput
@@ -90,22 +88,23 @@ class Login extends Component {
           label="Email"
           value={this.state.loginEmail}
           onChangeText={this.handleEmail}
-          mode={'outlined'}
+          mode="outlined"
         />
         <TextInput
           style={styles.paperInput}
           label="Password"
           value={this.state.loginPassword}
           onChangeText={this.handlePassword}
-          mode={'outlined'}
+          mode="outlined"
           secureTextEntry
         />
 
-        <Button mode="contained" style={styles.paperButton} onPress={() => this.logIn()}>
+        <Button
+          mode="contained"
+          style={styles.paperButton}
+          onPress={() => this.logIn()}>
           Login
         </Button>
-
-      {/* </View> */}
       </ScrollView>
     );
   };

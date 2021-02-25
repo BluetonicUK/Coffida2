@@ -1,3 +1,12 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-unused-vars */
+/* eslint-disable global-require */
+/* eslint-disable prefer-template */
+/* eslint-disable react/sort-comp */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/jsx-filename-extension */
+
 import React, {Component} from 'react';
 import {
   View,
@@ -7,11 +16,11 @@ import {
   Image,
   ToastAndroid,
 } from 'react-native';
-import styles from './stylesheet';
 import AsyncStorage from '@react-native-community/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import StarRating from 'react-native-star-rating';
-//import {Button} from 'react-native-paper';
+import styles from './stylesheet';
+// import {Button} from 'react-native-paper';
 
 class MyLikedReviews extends Component {
   constructor(props) {
@@ -73,7 +82,7 @@ class MyLikedReviews extends Component {
     )
       .then((response) => {
         if (response.status === 200) {
-          //likes -= 1;
+          // likes -= 1;
           ToastAndroid.show('Review Unliked', ToastAndroid.SHORT);
           this.returnLocation();
         }
@@ -87,12 +96,11 @@ class MyLikedReviews extends Component {
     return (
       <StarRating
         containerStyle={styles.star}
-        disabled={true}
+        disabled
         maxStars={5}
         rating={starRating}
-        //selectedStar={(rating) => this.onStarRatingPress(rating)}
-        emptyStarColor={'#a9abb0'}
-        fullStarColor={'#7ee687'}
+        emptyStarColor="#a9abb0"
+        fullStarColor="#7ee687"
         starSize={15}
       />
     );
@@ -109,7 +117,7 @@ class MyLikedReviews extends Component {
 
         <FlatList
           style={{width: '100%'}}
-          //contentContainerStyle={{marginTop: 10, paddingBottom: 40}}
+          // contentContainerStyle={{marginTop: 10, paddingBottom: 40}}
           data={this.state.likedReviews}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item, index}) => (
@@ -150,7 +158,7 @@ class MyLikedReviews extends Component {
                     <Ionicons
                       name="close-circle-outline"
                       size={20}
-                      color={'red'}
+                      color="red"
                     />
                   </TouchableOpacity>
                 </Text>

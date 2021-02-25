@@ -1,3 +1,15 @@
+/* eslint-disable global-require */
+/* eslint-disable react/sort-comp */
+/* eslint-disable no-console */
+/* eslint-disable spaced-comment */
+/* eslint-disable react/prop-types */
+/* eslint-disable consistent-return */
+/* eslint-disable no-unused-vars */
+/* eslint-disable prefer-template */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/jsx-filename-extension */
+
 import React, {Component} from 'react';
 import {
   View,
@@ -7,12 +19,11 @@ import {
   Image,
   FlatList,
 } from 'react-native';
-import styles from './stylesheet';
 import AsyncStorage from '@react-native-community/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import StarRating from 'react-native-star-rating';
 import Photo from './photo';
-
+import styles from './stylesheet';
 
 class MyReviews extends Component {
   constructor(props) {
@@ -23,7 +34,7 @@ class MyReviews extends Component {
       locReviews: [],
       reviews: [],
       likedReviews: [],
-      //displayImage: true,
+      // displayImage: true,
     };
   }
 
@@ -49,7 +60,7 @@ class MyReviews extends Component {
         .then(async (responseJson) => {
           this.setState({
             faveLocations: responseJson.favourite_locations,
-            locReviews: responseJson.favourite_locations.location_reviews, //array
+            locReviews: responseJson.favourite_locations.location_reviews,
             reviews: responseJson.reviews,
             likedReviews: responseJson.liked_reviews,
           });
@@ -143,29 +154,26 @@ class MyReviews extends Component {
       });
   };
 
-
-
-  render() {  
+  render() {
     return (
       <View style={styles.flexContainer}>
         <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
 
         <FlatList
           style={{width: '100%'}}
-          //contentContainerStyle={{marginTop: 10, paddingBottom: 40}}
+          // contentContainerStyle={{marginTop: 10, paddingBottom: 40}}
           data={this.state.reviews}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item, index}) => (
             <View>
               <View style={styles.flatlist4}>
-
                 <Text style={{textAlign: 'center', fontWeight: 'bold'}}>
                   {'\n' + item.location.location_name + ', '}
                   {item.location.location_town + '\n'}
                 </Text>
 
                 <Photo
-                  location_id ={item.location.location_id}
+                  location_id={item.location.location_id}
                   review_id={item.review.review_id}
                 />
 
@@ -197,7 +205,7 @@ class MyReviews extends Component {
                     <Ionicons
                       name="close-circle-outline"
                       size={20}
-                      color={'red'}
+                      color="red"
                     />
                   </TouchableOpacity>
                   {'    '}
@@ -208,7 +216,7 @@ class MyReviews extends Component {
                         item.location.location_id,
                       )
                     }>
-                    <Ionicons name="create-outline" size={20} color={'blue'} />
+                    <Ionicons name="create-outline" size={20} color="blue" />
                   </TouchableOpacity>
                 </Text>
               </View>

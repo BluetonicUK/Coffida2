@@ -1,3 +1,19 @@
+/* eslint-disable no-useless-catch */
+/* eslint-disable no-else-return */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable prettier/prettier */
+/* eslint-disable eqeqeq */
+/* eslint-disable camelcase */
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable prefer-template */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable lines-between-class-members */
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/jsx-boolean-value */
+/* eslint-disable spaced-comment */
+/* eslint-disable react/jsx-curly-brace-presence */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/sort-comp */
 import React, {Component} from 'react';
 import {
   Text,
@@ -7,12 +23,12 @@ import {
   Image,
   ToastAndroid,
 } from 'react-native';
-import styles from './stylesheet';
 import AsyncStorage from '@react-native-community/async-storage';
 import StarRating from 'react-native-star-rating';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Button } from 'react-native-paper';
+import {Button} from 'react-native-paper';
 import Photo from './photo';
+import styles from './stylesheet';
 
 class SearchResult extends Component {
   constructor(props) {
@@ -20,7 +36,6 @@ class SearchResult extends Component {
 
     this.state = {
       locationID: 0,
-      starCount: 2.5,
       locName: '',
       locTown: '',
       lat: 0,
@@ -31,28 +46,20 @@ class SearchResult extends Component {
       avgQuality: 0,
       avgClean: 0,
       LocReviews: [],
-      favourite: false,
-      isPhoto: false,
-      testReviews: [],
       icon: 'heart-outline',
       likeIcon: 'thumbs-up-outline',
-      reviewID: 0,
-      likes: 0,
-
-      serverResponse: 0,
-      urlRetuen: '',
-      displayImage: true,
     };
   }
 
   componentDidMount = async () => {
     await this.returnLocation();
-  }
+  };
 
   toAddReview = () => {
     this.props.navigation.navigate('Add Review');
   };
 
+  // eslint-disable-next-line consistent-return
   returnLocation = async () => {
     const id = await AsyncStorage.getItem('@location_id');
 
@@ -65,6 +72,7 @@ class SearchResult extends Component {
           'Content-Type': 'image/jpeg',
         },
       })
+        // eslint-disable-next-line consistent-return
         .then((response) => {
           if (response.status === 200) {
             return response.json();
@@ -83,7 +91,6 @@ class SearchResult extends Component {
             avgQuality: responseJson.avg_quality_rating,
             avgClean: responseJson.avg_clenliness_rating,
             LocReviews: responseJson.location_reviews,
-            likes: responseJson.location_reviews.likes,
           });
         })
         .catch((error) => {
@@ -108,7 +115,6 @@ class SearchResult extends Component {
         disabled={true}
         maxStars={5}
         rating={starRating}
-        //selectedStar={(rating) => this.onStarRatingPress(rating)}
         emptyStarColor={'#a9abb0'}
         fullStarColor={'#1dab40'}
         starSize={18}
@@ -122,7 +128,6 @@ class SearchResult extends Component {
         disabled={true}
         maxStars={5}
         rating={starRating}
-        //selectedStar={(rating) => this.onStarRatingPress(rating)}
         emptyStarColor={'#a9abb0'}
         fullStarColor={'#7ee687'}
         starSize={15}
@@ -131,9 +136,9 @@ class SearchResult extends Component {
   };
 
   addRemoveFavourite = async () => {
-    token = await AsyncStorage.getItem('@session_token');
-    id = await AsyncStorage.getItem('@location_id');
-
+    const token = await AsyncStorage.getItem('@session_token');
+    const id = await AsyncStorage.getItem('@location_id');
+    try{
     if (this.state.icon === 'heart-outline') {
       return fetch(
         'http://10.0.2.2:3333/api/1.0.0/location/' + id + '/favourite',
@@ -181,14 +186,17 @@ class SearchResult extends Component {
           console.error(error + 'ERROR 1');
         });
     }
+  } catch(error) {
+    throw error; 
+  }
   };
 
-  returnLikeIcon = (revID) => {
-    if (this.state.likeIcon === 'thumbs-up-outline')
-      return 'thumbs-up'
-    else
-      return 'thumbs-up-outline'
-  }
+  returnLikeIcon = () => {
+    if (this.state.likeIcon === 'thumbs-up-outline') {
+      return 'thumbs-up';
+    }
+    return 'thumbs-up-outline';
+  };
 
   likeDislikeReview = async (rev_id, likes) => {
     //this.state.reviewID = rev_id
@@ -218,8 +226,8 @@ class SearchResult extends Component {
           if (response.status === 200) {
             likes += 1;
             this.setState({
-              likeIcon: 'thumbs-up',    //each review needs it's own state. not gonna have time.
-              likes: likes,
+              likeIcon: 'thumbs-up', //each review needs it's own state. not gonna have time.
+              likes,
             });
 
             //updates - confusion as parameter is likes along with state
@@ -250,7 +258,7 @@ class SearchResult extends Component {
             likes -= 1;
             this.setState({
               likeIcon: 'thumbs-up-outline',
-              likes: likes,
+              likes,
             });
             this.returnLocation();
 
@@ -263,76 +271,82 @@ class SearchResult extends Component {
     }
   };
 
-  displayCafephoto(){
-    if(this.state.photoPath != ''){
-      return(
+  displayCafephoto() {
+    if (this.state.photoPath != '') {
+      return (
         <View style={{alignItems: 'center'}}>
-            <Image
-              style={styles.image}
-              source={{uri: this.state.photoPath}}>
-            </Image>
-          </View>
+          <Image
+            style={styles.image}
+            source={{uri: this.state.photoPath}}></Image>
+        </View>
       );
     }
-    else {
-      return <View></View>;
-    }
+    return <View></View>;
   }
 
-  render ()  {
-    //console.log(this.displayReviewPhoto(20))
+  render() {
     return (
-        <View style={styles.shop}>
-          <Text style={{textAlign: 'center', fontWeight: 'bold'}}>
-            {this.state.locName + '\n' + this.state.locTown}
-          </Text>
+      <View style={styles.shop}>
+        <Text style={{textAlign: 'center', fontWeight: 'bold'}}>
+          {this.state.locName + '\n' + this.state.locTown}
+        </Text>
 
-          <TouchableOpacity
-            style={{alignItems: 'center'}}
-            onPress={() => this.addRemoveFavourite()}>
-            <Ionicons
-              name={this.state.icon}
-              style={{color: 'red', fontSize: 18}}
-            />
-          </TouchableOpacity>
+        <TouchableOpacity
+          style={{alignItems: 'center'}}
+          onPress={() => this.addRemoveFavourite()}>
+          <Ionicons
+            name={this.state.icon}
+            style={{color: 'red', fontSize: 18}}
+          />
+        </TouchableOpacity>
 
-          <View style={styles.ratingView}>
-            <Text>Overall: </Text>
-            <Text>{this.returnMainReviewStars(this.state.avgOverall)}</Text>
-          </View>
+        <View style={styles.ratingView}>
+          <Text>Overall: </Text>
+          <Text>{this.returnMainReviewStars(this.state.avgOverall)}</Text>
+        </View>
 
-          <View style={styles.ratingView}>
-            <Text>Average Price: </Text>
-            <Text>{this.returnMainReviewStars(this.state.avgPrice)}</Text>
-          </View>
+        <View style={styles.ratingView}>
+          <Text>Average Price: </Text>
+          <Text>{this.returnMainReviewStars(this.state.avgPrice)}</Text>
+        </View>
 
-          <View style={styles.ratingView}>
-            <Text>Average Quality: </Text>
-            <Text>{this.returnMainReviewStars(this.state.avgQuality)}</Text>
-          </View>
+        <View style={styles.ratingView}>
+          <Text>Average Quality: </Text>
+          <Text>{this.returnMainReviewStars(this.state.avgQuality)}</Text>
+        </View>
 
-          <View style={styles.ratingView}>
-            <Text>Average Cleanliness: </Text>
-            <Text>{this.returnMainReviewStars(this.state.avgClean)}</Text>
-          </View>
+        <View style={styles.ratingView}>
+          <Text>Average Cleanliness: </Text>
+          <Text>{this.returnMainReviewStars(this.state.avgClean)}</Text>
+        </View>
 
-          <View style={styles.mapButtonView}>
-            <Button mode="contained" style={styles.mapButton} onPress={() =>
-                this.passCoordinates(this.state.lat, this.state.long, this.state.locName)}>
-              Map
-            </Button>
-            <Button mode="contained" style={styles.mapButton} onPress={() => this.toAddReview()}>
-              Add Review
-            </Button>
-          </View>
-          {this.displayCafephoto()}
+        <View style={styles.mapButtonView}>
+          <Button
+            mode="contained"
+            style={styles.mapButton}
+            onPress={() =>
+              this.passCoordinates(
+                this.state.lat,
+                this.state.long,
+                this.state.locName,
+              )
+            }>
+            Map
+          </Button>
+          <Button
+            mode="contained"
+            style={styles.mapButton}
+            onPress={() => this.toAddReview()}>
+            Add Review
+          </Button>
+        </View>
+        {this.displayCafephoto()}
 
-          
-          <FlatList
-            data={this.state.LocReviews}
-            renderItem={({item}) => (
-              // <View>
-              <View style={styles.flatlist2}>
+        <FlatList
+          data={this.state.LocReviews}
+          renderItem={({item}) => (
+            // <View>
+            <View style={styles.flatlist2}>
               <Text style={styles.flatlist2}>
                 User Review: {item.review_id + '\n'}
                 Overall Rating:{' '}
@@ -362,17 +376,15 @@ class SearchResult extends Component {
                 </TouchableOpacity>
                 {'\n'}
                 <Photo
-                  location_id ={this.state.locationID}
+                  location_id={this.state.locationID}
                   review_id={item.review_id}
                 />
               </Text>
-              </View>
-            )}
-            keyExtractor={(temp, index) => index.toString()}
-            
-          />
-        </View>
-
+            </View>
+          )}
+          keyExtractor={(temp, index) => index.toString()}
+        />
+      </View>
     );
   }
 }

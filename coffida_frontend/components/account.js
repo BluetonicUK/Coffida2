@@ -1,22 +1,27 @@
+/* eslint-disable consistent-return */
+/* eslint-disable global-require */
+/* eslint-disable prefer-template */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/sort-comp */
 import React, {Component} from 'react';
-import {Text, View, Image, TouchableOpacity} from 'react-native';
-import styles from './stylesheet';
+import {Text, View, Image} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Button } from 'react-native-paper';
+import {Button} from 'react-native-paper';
+import styles from './stylesheet';
 
 class Account extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      id: '',
       firstname: '',
-      surname: '',
-      email: '',
-      favourite_locations: [],
-      reviews: [],
-      liked_reviews: [],
     };
+  }
+
+  componentDidMount() {
+    this.getDetails();
   }
 
   getDetails = async () => {
@@ -38,13 +43,7 @@ class Account extends Component {
         })
         .then((responseJson) => {
           this.setState({
-            id: responseJson.user_id,
             firstname: responseJson.first_name,
-            surname: responseJson.last_name,
-            email: responseJson.email,
-            favourite_locations: responseJson.favourite_locations,
-            reviews: responseJson.reviews,
-            liked_reviews: responseJson.liked_reviews,
           });
         })
         .catch((error) => {
@@ -54,14 +53,6 @@ class Account extends Component {
       console.log(e);
     }
   };
-
-  componentDidMount() {
-    this.getDetails();
-  }
-
-  toMyLocations() {
-    return this.props.navigation.navigate('MyLocations');
-  }
 
   toEdit() {
     return this.props.navigation.navigate('EditDetails');
@@ -89,19 +80,22 @@ class Account extends Component {
   };
 
   time = () => {
-    var hours = new Date().getHours();
+    const hours = new Date().getHours();
     if (hours >= 12 && hours < 17) {
       return 'afternoon, ';
-    } else if (hours >= 17) {
-      return 'evening, ';
-    } else {
-      return 'morning, ';
     }
+    if (hours >= 17) {
+      return 'evening, ';
+    }
+    return 'morning, ';
   };
 
-  render() {
-    //const nav = this.props.navigation;
+  toMyLocations() {
+    // eslint-disable-next-line react/destructuring-assignment
+    return this.props.navigation.navigate('MyLocations');
+  }
 
+  render() {
     return (
       <View style={styles.flexContainer}>
         <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
@@ -111,27 +105,18 @@ class Account extends Component {
           Good {this.time() + this.state.firstname + '!\n'}
         </Text>
 
-        {/* <TouchableOpacity
-          style={styles.button}
-          onPress={() => this.toMyLocations()}>
-          <Text style={styles.text}> My Locations </Text>
-        </TouchableOpacity> */}
-        <Button mode="contained" style={styles.paperButton} onPress={() => this.toEdit()}>
+        <Button
+          mode="contained"
+          style={styles.paperButton}
+          onPress={() => this.toEdit()}>
           Edit Details
         </Button>
-        <Button mode="contained" style={styles.buttonRed} onPress={() => this.toLogout()}>
-          Logout
-        </Button>
-
-        {/* <TouchableOpacity style={styles.button} onPress={() => this.toEdit()}>
-          <Text style={styles.text}> Edit Details </Text>
-        </TouchableOpacity> */}
-
-        {/* <TouchableOpacity
+        <Button
+          mode="contained"
           style={styles.buttonRed}
           onPress={() => this.toLogout()}>
-          <Text style={styles.text}> Logout </Text>
-        </TouchableOpacity> */}
+          Logout
+        </Button>
       </View>
     );
   }

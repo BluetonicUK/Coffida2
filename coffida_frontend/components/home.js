@@ -1,20 +1,20 @@
+/* eslint-disable lines-between-class-members */
+/* eslint-disable global-require */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/prop-types */
+
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ActivityIndicator,
-  Image,
-} from 'react-native';
+import {View, Image} from 'react-native';
+import {Button} from 'react-native-paper';
 import styles from './stylesheet';
-import { Button } from 'react-native-paper';
 
 class Home extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isLoading: true,
+      // isLoading: true,
     };
   }
   render() {
@@ -23,11 +23,17 @@ class Home extends Component {
     return (
       <View style={styles.flexContainer}>
         <Image style={styles.logo} source={require('../logos/Coffida1.png')} />
-        
-        <Button style={styles.paperButton} mode="contained" onPress={() => nav.navigate('Login')}>
+
+        <Button
+          style={styles.paperButton}
+          mode="contained"
+          onPress={() => nav.navigate('Login')}>
           Login
         </Button>
-        <Button style={styles.paperButton} mode="contained" onPress={() => nav.navigate('Register')}>
+        <Button
+          style={styles.paperButton}
+          mode="contained"
+          onPress={() => nav.navigate('Register')}>
           Register
         </Button>
       </View>

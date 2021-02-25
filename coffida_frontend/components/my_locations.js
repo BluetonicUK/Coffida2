@@ -1,3 +1,11 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable consistent-return */
+/* eslint-disable no-unused-vars */
+/* eslint-disable prefer-template */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/jsx-filename-extension */
+
 import React, {Component} from 'react';
 import {
   Text,
@@ -6,9 +14,9 @@ import {
   ToastAndroid,
   TouchableOpacity,
 } from 'react-native';
-import styles from './stylesheet';
 import AsyncStorage from '@react-native-community/async-storage';
 import StarRating from 'react-native-star-rating';
+import styles from './stylesheet';
 
 class MyLocations extends Component {
   constructor(props) {
@@ -50,7 +58,7 @@ class MyLocations extends Component {
         .then(async (responseJson) => {
           this.setState({
             faveLocations: responseJson.favourite_locations,
-            locReviews: responseJson.favourite_locations.location_reviews, //array
+            locReviews: responseJson.favourite_locations.location_reviews,
             reviews: responseJson.reviews,
             likedReviews: responseJson.liked_reviews,
           });
@@ -67,12 +75,11 @@ class MyLocations extends Component {
     return (
       <StarRating
         containerStyle={styles.star}
-        disabled={true}
+        disabled
         maxStars={5}
         rating={starRating}
-        //selectedStar={(rating) => this.onStarRatingPress(rating)}
-        emptyStarColor={'#a9abb0'}
-        fullStarColor={'#1dab40'}
+        emptyStarColor="#a9abb0"
+        fullStarColor="#1dab40"
         starSize={18}
       />
     );
@@ -82,12 +89,11 @@ class MyLocations extends Component {
     return (
       <StarRating
         containerStyle={styles.star}
-        disabled={true}
+        disabled
         maxStars={5}
         rating={starRating}
-        //selectedStar={(rating) => this.onStarRatingPress(rating)}
-        emptyStarColor={'#a9abb0'}
-        fullStarColor={'#7ee687'}
+        emptyStarColor="#a9abb0"
+        fullStarColor="#1dab40"
         starSize={15}
       />
     );
@@ -168,7 +174,7 @@ class MyLocations extends Component {
     )
       .then((response) => {
         if (response.status === 200) {
-          likes -= 1;
+          // likes -= 1;
           ToastAndroid.show('Review Unliked', ToastAndroid.SHORT);
           this.returnLocation();
         }
@@ -224,8 +230,6 @@ class MyLocations extends Component {
                   ', ' +
                   item.location.location_town +
                   '\n'}
-                {/* LOCID: {item.location.location_id + '\n'}
-                ID: {item.review.review_id + '\n'} */}
                 Overall: {'\n'}
                 {this.IndividualReviewStars(item.review.overall_rating)}
                 {'\n'}

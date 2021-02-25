@@ -1,17 +1,21 @@
+/* eslint-disable global-require */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-var */
+/* eslint-disable react/no-unused-state */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/jsx-filename-extension */
+
 import React, {Component} from 'react';
 import {
-  Text,
   Image,
-  //TextInput,
   ScrollView,
-  TouchableOpacity,
   View,
   ToastAndroid,
   ActivityIndicator,
 } from 'react-native';
 import {BarPasswordStrengthDisplay} from 'react-native-password-strength-meter';
+import {Button, TextInput} from 'react-native-paper';
 import styles from './stylesheet';
-import { Button, TextInput } from 'react-native-paper';
 
 class Register extends Component {
   constructor(props) {
@@ -27,11 +31,11 @@ class Register extends Component {
   }
 
   handleFirstName = (firstName) => {
-    this.setState({firstName: firstName});
+    this.setState({firstName});
   };
 
   handleSurname = (surname) => {
-    this.setState({surname: surname});
+    this.setState({surname});
   };
 
   handleEmail = (email) => {
@@ -68,11 +72,12 @@ class Register extends Component {
           email: this.state.loginEmail,
           password: this.state.loginPassword,
         }),
-      }) //end fetch
+      }) // end fetch
         .then((response) => {
           if (response.status === 201) {
             return response.json();
-          } else if (response.status === 400) {
+          }
+          if (response.status === 400) {
             ToastAndroid.show('Failed to register', ToastAndroid.SHORT);
           } else {
             ToastAndroid.show('Something went wrong', ToastAndroid.SHORT);
@@ -80,7 +85,7 @@ class Register extends Component {
           response.json();
         })
         .then((responseJson) => {
-          //this.setState({isLoading: false})
+          // this.setState({isLoading: false})
           console.log(responseJson);
           this.props.navigation.navigate('Login');
         })
@@ -133,10 +138,12 @@ class Register extends Component {
             minLength={1}
           />
 
-          <Button mode="contained" style={styles.paperButton} onPress={() => this.register()}>
+          <Button
+            mode="contained"
+            style={styles.paperButton}
+            onPress={() => this.register()}>
             Register User
           </Button>
-
         </View>
       </ScrollView>
     );
