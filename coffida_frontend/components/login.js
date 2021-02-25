@@ -16,8 +16,8 @@ class Login extends Component {
 
     this.state = {
       isLoading: false,
-      loginEmail: 'joz@joz.com',
-      loginPassword: 'hello123',
+      loginEmail: '',
+      loginPassword: '',
     };
   }
 

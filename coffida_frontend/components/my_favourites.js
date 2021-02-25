@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
 /* eslint-disable global-require */
@@ -68,8 +69,8 @@ class Favourites extends Component {
     this.returnLocation();
   }
 
-  visitLocation = async () => {
-    const locID = await AsyncStorage.setItem(
+  visitLocation = async (locID) => {
+    locID = await AsyncStorage.setItem(
       '@location_id',
       // eslint-disable-next-line no-use-before-define
       JSON.stringify(locID),
